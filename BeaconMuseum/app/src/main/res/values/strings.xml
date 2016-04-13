@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BeaconMuseum</string>
+    <string name="kontakt_io_api_key">YOUR API KEY</string>
 </resources>
