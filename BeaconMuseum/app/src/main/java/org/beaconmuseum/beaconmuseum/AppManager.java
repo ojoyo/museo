@@ -1,24 +1,26 @@
 package org.beaconmuseum.beaconmuseum;
 
-import android.util.Log;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
-
-public class AppManager {
-
-    public static void refresh(){
-        BeaconsInRangeList beaconsInRangeList = BeaconsInRangeList.getInstance();
-        if (beaconsInRangeList == null) {
-            Log.d("AppMgr", "null range lista!");
-        }
-        else {
-            BeaconInfo bList[] = beaconsInRangeList.getList();
-            if (bList == null)
-                Log.d("ERR", "blist is null");
-            else
-                for (BeaconInfo bi : bList) {
-                    Log.d("REFRESH", bi.id);
-
-            }
-        }
+class myComparator implements Comparator<BeaconInfo> {
+    @Override
+    public int compare(BeaconInfo b1, BeaconInfo b2) {
+        if (b1.range < b2.range) return -1;
+        if (b1.range > b2.range) return 1;
+        return 0;
     }
 }
+
+public class AppManager {
+    public static BeaconInfo[] refreshGUI() {
+        BeaconInfo bList[] = BeaconsInRangeList.getInstance().getList();
+        Collections.sort(new ArrayList<>(Arrays.asList(bList)), new myComparator());
+        return bList;
+
+    }
+
+}
+
