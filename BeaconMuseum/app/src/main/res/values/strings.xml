@@ -1,4 +1,12 @@
 <resources>
-    <string name="app_name">BeaconMuseum</string>
+    <string name="app_name">Museo</string>
     <string name="kontakt_io_api_key">HsmnNSCbfCkXumwJHqafmkWBvIeYEXbo</string>
+
+
+
+    <!-- Beacon names (or later - art sample names) -->
+    <string name="beacon1">Beacon 1</string>
+    <string name="beacon2">Beacon 2</string>
+    <string name="beacon3">Beacon 3</string>
+    <string name="beacon4">Beacon 4</string>
 </resources>
