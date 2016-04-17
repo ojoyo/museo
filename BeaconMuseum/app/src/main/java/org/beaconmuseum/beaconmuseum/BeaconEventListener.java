@@ -3,10 +3,11 @@ package org.beaconmuseum.beaconmuseum;
 import com.kontakt.sdk.android.ble.discovery.*;
 import com.kontakt.sdk.android.ble.manager.ProximityManager;
 import com.kontakt.sdk.android.common.profile.*;
-import java.util.List;
+import java.util.*;
 
 public class BeaconEventListener implements ProximityManager.ProximityListener {
     private static BeaconEventListener ourInstance = new BeaconEventListener();
+    private static Vector<BeaconEventProcessorInterface> processorsList = new Vector<>();
 
     public static BeaconEventListener getInstance() {
         return ourInstance;
@@ -24,30 +25,12 @@ public class BeaconEventListener implements ProximityManager.ProximityListener {
     public void onEvent(BluetoothDeviceEvent bluetoothDeviceEvent) {
         List<? extends RemoteBluetoothDevice> deviceList = bluetoothDeviceEvent.getDeviceList();
 
-        for(RemoteBluetoothDevice device : deviceList)
-            processEvent(bluetoothDeviceEvent.getEventType(), device);
+        for(RemoteBluetoothDevice device: deviceList)
+            for(BeaconEventProcessorInterface processor: processorsList)
+                processor.processBeaconEvent(bluetoothDeviceEvent.getEventType(), device);
     }
 
-    private void processEvent(EventType event, RemoteBluetoothDevice device) {
-        BeaconsInRangeList beaconsList = BeaconsInRangeList.getInstance();
-        BeaconInfo beacon = new BeaconInfo(
-                device.getUniqueId(),
-                device.getName(),
-                device.getDistance()
-        );
-
-        switch (event) {
-            case DEVICE_DISCOVERED:
-                beaconsList.removeBeaconFromList(beacon);
-                beaconsList.addBeaconToList(beacon);
-                break;
-            case DEVICES_UPDATE:
-                beaconsList.removeBeaconFromList(beacon);
-                beaconsList.addBeaconToList(beacon);
-                break;
-            case DEVICE_LOST:
-                beaconsList.removeBeaconFromList(beacon);
-                break;
-        }
+    public void registerProcessor(BeaconEventProcessorInterface processor) {
+        processorsList.add(processor);
     }
 }

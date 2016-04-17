@@ -26,6 +26,10 @@ public class BeaconManager {
         // Start KontaktSDK
         KontaktSDK.initialize(context);
 
+        // Register default event processor
+        BeaconEventListener.getInstance().
+                registerProcessor(BeaconsInRangeList.getInstance());
+
         // Create proximity manager and register listener
         proximityManager = new KontaktProximityManager(context);
         proximityManager.initializeScan(BeaconScanContext.getScanContext(), new OnServiceReadyListener() {
