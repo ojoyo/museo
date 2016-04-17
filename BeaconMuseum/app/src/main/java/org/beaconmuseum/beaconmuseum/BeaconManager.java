@@ -6,20 +6,28 @@ import com.kontakt.sdk.android.manager.KontaktProximityManager;
 
 import android.content.Context;
 
+/**
+ * Używany do uruchomienia i zatrzymania SDK. Należy użyć przed użyciem jakiejkolwiek
+ * innej metody korzystającej z SDK.
+ */
 public class BeaconManager {
-    private int counter;
-    private KontaktProximityManager proximityManager;
+    private static KontaktProximityManager proximityManager;
 
-    public void initialize(Context context) {
-        ++this.counter;
+    /**
+     * Przygotowuje SDK i uruchamia nasłuchiwanie beaconów.
+     *
+     * @param context Referencja do contextu lub obiektu Activity która uruchamia
+     *                nasłuchiwanie.
+     */
+    public static void initialize(Context context) {
+        if(proximityManager != null)
+            return;
 
         // Start KontaktSDK
-        int kontaktApiResourceId = R.string.kontakt_io_api_key;
-        String apiKey = context.getString(kontaktApiResourceId);
-        KontaktSDK.initialize(apiKey);
+        KontaktSDK.initialize(context);
 
         // Create proximity manager and register listener
-        this.proximityManager = new KontaktProximityManager(context);
+        proximityManager = new KontaktProximityManager(context);
         proximityManager.initializeScan(BeaconScanContext.getScanContext(), new OnServiceReadyListener() {
             @Override
             public void onServiceReady() {
@@ -33,17 +41,17 @@ public class BeaconManager {
         });
     }
 
-    public KontaktProximityManager getProximityManager() {
-        return this.proximityManager;
-    }
-
-    public void destroy() {
-        --this.counter;
-
-        if(this.counter > 0 || this.proximityManager == null)
+    /**
+     * Zatrzymuje nasłuchiwanie i wyłącza SDK.
+     */
+    public static void destroy() {
+        if(proximityManager == null)
             return;
 
         proximityManager.detachListener(BeaconEventListener.getInstance());
-        this.proximityManager.disconnect();
+        proximityManager.disconnect();
+        proximityManager = null;
+
+        KontaktSDK.reset();
     }
 }

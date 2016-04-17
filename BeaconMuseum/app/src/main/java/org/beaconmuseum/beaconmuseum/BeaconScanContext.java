@@ -4,6 +4,9 @@ import com.kontakt.sdk.android.ble.configuration.*;
 import com.kontakt.sdk.android.ble.configuration.scan.*;
 import com.kontakt.sdk.android.ble.manager.ProximityManager;
 
+/**
+ * Pozwala manipulować parametrami skanowania otoczenia pod kątem wyszukiwania beaconów.
+ */
 public class BeaconScanContext {
     public static ScanContext getScanContext() {
         return new ScanContext.Builder()

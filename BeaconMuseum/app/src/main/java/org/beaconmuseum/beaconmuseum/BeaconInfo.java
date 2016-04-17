@@ -1,8 +1,14 @@
 package org.beaconmuseum.beaconmuseum;
 
+/**
+ * Obiekt reprezentujący Beacon.
+ */
 public class BeaconInfo {
+    /** ID beacona */
     public final String id;
+    /** Nazwa beacona */
     public final String name;
+    /** Odległość beacona od odbiornika */
     public final double range;
 
     BeaconInfo(String id, String name, double range) {
