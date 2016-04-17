@@ -7,7 +7,7 @@ import java.util.HashSet;
  */
 public class BeaconsInRangeList {
     private static BeaconsInRangeList ourInstance = new BeaconsInRangeList();
-    private HashSet<BeaconInfo> beacons;
+    private HashSet<BeaconInfo> beacons = new HashSet<>();
 
     /**
      * Daje dostęp do instancji singletona.
