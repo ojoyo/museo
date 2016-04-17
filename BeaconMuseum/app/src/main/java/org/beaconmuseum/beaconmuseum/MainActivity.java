@@ -2,6 +2,8 @@ package org.beaconmuseum.beaconmuseum;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
+
 import com.kontakt.sdk.android.common.KontaktSDK;
 
 public class MainActivity extends AppCompatActivity {
@@ -13,5 +15,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Test if compiles:
         KontaktSDK.initialize("YOUR API KEY");
+
     }
+
+
 }
