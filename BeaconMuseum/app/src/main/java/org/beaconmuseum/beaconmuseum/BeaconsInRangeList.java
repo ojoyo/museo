@@ -35,14 +35,7 @@ public class BeaconsInRangeList implements BeaconEventProcessorInterface {
         beacons.clear();
     }
 
-    public void processBeaconEvent(EventType event, RemoteBluetoothDevice device) {
-        BeaconsInRangeList beaconsList = BeaconsInRangeList.getInstance();
-        BeaconInfo beacon = new BeaconInfo(
-                device.getUniqueId(),
-                device.getName(),
-                device.getDistance()
-        );
-
+    public void processBeaconEvent(EventType event, BeaconInfo beacon) {
         switch (event) {
             case DEVICE_DISCOVERED:
                 beacons.remove(beacon);

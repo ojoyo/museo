@@ -1,5 +1,7 @@
 package org.beaconmuseum.beaconmuseum;
 
+import com.kontakt.sdk.android.common.profile.RemoteBluetoothDevice;
+
 /**
  * Obiekt reprezentujący Beacon.
  */
@@ -11,10 +13,18 @@ public class BeaconInfo {
     /** Odległość beacona od odbiornika */
     public final double range;
 
-    BeaconInfo(String id, String name, double range) {
+    public BeaconInfo(String id, String name, double range) {
         this.id = id;
         this.name = name;
         this.range = range;
+    }
+
+    public BeaconInfo(RemoteBluetoothDevice device) {
+        this(
+                device.getUniqueId(),
+                device.getName(),
+                device.getDistance()
+        );
     }
 
     @Override

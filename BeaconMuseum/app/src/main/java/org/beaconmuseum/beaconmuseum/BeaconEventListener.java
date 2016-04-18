@@ -26,8 +26,12 @@ public class BeaconEventListener implements ProximityManager.ProximityListener {
         List<? extends RemoteBluetoothDevice> deviceList = bluetoothDeviceEvent.getDeviceList();
 
         for(RemoteBluetoothDevice device: deviceList)
-            for(BeaconEventProcessorInterface processor: processorsList)
-                processor.processBeaconEvent(bluetoothDeviceEvent.getEventType(), device);
+            for(BeaconEventProcessorInterface processor: processorsList) {
+                BeaconInfo beacon = new BeaconInfo(device);
+                EventType eventType = bluetoothDeviceEvent.getEventType();
+
+                processor.processBeaconEvent(eventType, beacon);
+            }
     }
 
     public void registerProcessor(BeaconEventProcessorInterface processor) {
