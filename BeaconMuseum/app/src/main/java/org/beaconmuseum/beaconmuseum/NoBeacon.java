@@ -1,16 +1,12 @@
 package org.beaconmuseum.beaconmuseum;
 
 /**
- * Represents an empty beacon
+ * represents a non-existent beacon
  */
 public class NoBeacon extends BeaconInfo {
     NoBeacon() {
-        super("", "", 0.0);
+        super(null, null, 0.0);
     }
-
-    /**
-     * @return false
-     */
     @Override
     public boolean isABeacon() {
         return false;

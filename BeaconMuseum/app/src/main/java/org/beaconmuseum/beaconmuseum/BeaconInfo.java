@@ -32,4 +32,8 @@ public class BeaconInfo {
     public int hashCode() {
         return id.hashCode();
     }
+
+    public boolean isABeacon() {
+        return true;
+    }
 }

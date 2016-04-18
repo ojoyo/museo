@@ -1,27 +1,25 @@
 package org.beaconmuseum.beaconmuseum;
 
-import java.util.Optional;
 /**
  * Trzyma najbliższy beacon w zasięgu
  */
 
 public class NearestBeacon {
     /**
-     * Zwraca optional z referencją do najbliższego
-     * beacona znajdującego się w zasięgu. Żeby sprawdzić,
-     * czy zwrócona wartość jest niepusta, należy
-     * skorzystać z metody isPresent()
+     * Zwraca informację o beaconie znajdującym się najbliżej
+     * odbiornika. Jeśli nie ma beacona w zasięgu, zwraca NoBeacon
+     * Aby testować istnienie, należy wołać metodę isABeacon()
      */
-    public static Optional<BeaconInfo> getInfo() {
+    public static BeaconInfo getInfo() {
         if (BeaconsInRangeList.getInstance().getList().length == 0) {
-            return Optional<BeaconInfo>.empty();
+            return new NoBeacon();
         } else {
             BeaconInfo result = BeaconsInRangeList.getInstance().getList()[0];
             for (BeaconInfo i : BeaconsInRangeList.getInstance().getList()) {
                 if (i.range < result.range)
                     result = i;
             }
-            return Optional<BeaconInfo>.of(result);
+            return result;
         }
     }
 }
