@@ -2,4 +2,4 @@
 beacon-museum IO project
 
 TODO:
-* Put your api key to strings.xml
+* map Beacon names to the paintings
