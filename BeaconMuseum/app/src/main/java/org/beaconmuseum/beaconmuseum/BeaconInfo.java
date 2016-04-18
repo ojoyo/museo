@@ -28,9 +28,15 @@ public class BeaconInfo {
         BeaconInfo beacon = (BeaconInfo) o;
         return beacon.id.equals(this.id);
     }
-
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    /**
+     * @return true if the object represents a beacon
+     */
+    public boolean isABeacon() {
+        return true;
     }
 }
