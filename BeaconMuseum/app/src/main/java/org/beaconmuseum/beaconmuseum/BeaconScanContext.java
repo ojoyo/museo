@@ -8,7 +8,7 @@ import com.kontakt.sdk.android.ble.manager.ProximityManager;
  * Pozwala manipulować parametrami skanowania otoczenia pod kątem wyszukiwania beaconów.
  */
 public class BeaconScanContext {
-    public static ScanContext getScanContext() {
+    public ScanContext getScanContext() {
         return new ScanContext.Builder()
                 .setScanPeriod(ScanPeriod.RANGING)
                 // or for monitoring for 15 seconds scan and 10 seconds waiting:

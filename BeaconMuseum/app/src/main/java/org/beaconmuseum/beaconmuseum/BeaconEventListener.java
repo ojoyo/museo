@@ -1,10 +1,12 @@
 package org.beaconmuseum.beaconmuseum;
 
+import com.google.inject.Singleton;
 import com.kontakt.sdk.android.ble.discovery.*;
 import com.kontakt.sdk.android.ble.manager.ProximityManager;
 import com.kontakt.sdk.android.common.profile.*;
 import java.util.*;
 
+@Singleton
 public class BeaconEventListener implements ProximityManager.ProximityListener {
     private static BeaconEventListener ourInstance = new BeaconEventListener();
     private static Vector<BeaconEventProcessorInterface> processorsList = new Vector<>();
