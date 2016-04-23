@@ -1,20 +1,18 @@
 package org.beaconmuseum.beaconmuseum;
 
 import android.bluetooth.BluetoothAdapter;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.support.v7.app.AppCompatActivity;
+import android.content.*;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
+import com.google.inject.Inject;
 
 import org.beaconmuseum.beaconmuseum.beacons.BeaconManager;
 
-public class MainActivity extends AppCompatActivity {
+import roboguice.activity.RoboActivity;
 
+public class MainActivity extends RoboActivity {
+    @Inject private BeaconManager beaconManager; // Olać warningi IDE
     private BluetoothAdapter btAdapter;
 
     BroadcastReceiver bluetoothState = new BroadcastReceiver() {
@@ -43,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
         checkBluetoothConnection();
 
-        BeaconManager beaconManager = new BeaconManager();
         beaconManager.initialize(this);
     }
 

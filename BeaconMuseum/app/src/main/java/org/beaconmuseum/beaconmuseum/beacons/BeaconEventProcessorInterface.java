@@ -1,7 +1,8 @@
-package org.beaconmuseum.beaconmuseum;
+package org.beaconmuseum.beaconmuseum.beacons;
 
 import com.kontakt.sdk.android.ble.discovery.EventType;
-import com.kontakt.sdk.android.common.profile.RemoteBluetoothDevice;
+
+import org.beaconmuseum.beaconmuseum.BeaconInfo;
 
 public interface BeaconEventProcessorInterface {
     void processBeaconEvent(EventType event, BeaconInfo beacon);

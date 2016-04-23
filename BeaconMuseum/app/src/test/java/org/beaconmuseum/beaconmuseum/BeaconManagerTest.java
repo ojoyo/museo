@@ -2,17 +2,12 @@ package org.beaconmuseum.beaconmuseum;
 
 import com.google.inject.AbstractModule;
 
-import org.beaconmuseum.beaconmuseum.beacons.BeaconManager;
-import org.beaconmuseum.beaconmuseum.beacons.KontaktSDKWrapper;
-import org.beaconmuseum.beaconmuseum.beacons.ProximityManagerWrapper;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.beaconmuseum.beaconmuseum.beacons.*;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.*;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
+import org.robolectric.*;
 import org.robolectric.annotation.Config;
 import roboguice.RoboGuice;
 

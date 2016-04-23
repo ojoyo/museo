@@ -1,7 +1,6 @@
 package org.beaconmuseum.beaconmuseum;
 
-import com.google.inject.Inject;
-
+import org.beaconmuseum.beaconmuseum.beacons.BeaconScanContext;
 import org.junit.Before;
 import org.junit.Test;
 

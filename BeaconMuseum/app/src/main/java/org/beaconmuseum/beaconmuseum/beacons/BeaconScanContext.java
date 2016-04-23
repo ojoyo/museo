@@ -1,4 +1,4 @@
-package org.beaconmuseum.beaconmuseum;
+package org.beaconmuseum.beaconmuseum.beacons;
 
 import com.kontakt.sdk.android.ble.configuration.*;
 import com.kontakt.sdk.android.ble.configuration.scan.*;

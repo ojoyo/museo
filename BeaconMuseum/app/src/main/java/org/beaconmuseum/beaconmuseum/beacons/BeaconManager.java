@@ -5,8 +5,6 @@ import com.google.inject.Singleton;
 import com.kontakt.sdk.android.ble.connection.OnServiceReadyListener;
 import android.content.Context;
 
-import org.beaconmuseum.beaconmuseum.BeaconEventListener;
-import org.beaconmuseum.beaconmuseum.BeaconScanContext;
 import org.beaconmuseum.beaconmuseum.BeaconsInRangeList;
 
 /**
