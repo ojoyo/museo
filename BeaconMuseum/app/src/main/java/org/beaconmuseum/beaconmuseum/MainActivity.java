@@ -7,12 +7,14 @@ import android.view.View;
 import android.widget.*;
 import com.google.inject.Inject;
 
+import org.beaconmuseum.beaconmuseum.beacons.BeaconInfo;
 import org.beaconmuseum.beaconmuseum.beacons.BeaconManager;
 
 import roboguice.activity.RoboActivity;
 
 public class MainActivity extends RoboActivity {
-    @Inject private BeaconManager beaconManager; // Olać warningi IDE
+    @Inject private BeaconManager beaconManager;
+    @Inject private AppManager appManager;
     private BluetoothAdapter btAdapter;
 
     BroadcastReceiver bluetoothState = new BroadcastReceiver() {
@@ -57,7 +59,7 @@ public class MainActivity extends RoboActivity {
     }
 
     public void refreshClick(View v) {
-        BeaconInfo[] bList = AppManager.refreshGUI();
+        BeaconInfo[] bList = appManager.refreshGUI();
         TextView textViewBig = (TextView)findViewById(R.id.textView);
         for (int i = 0; i < bList.length; i++)
             if (i == 0)

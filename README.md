@@ -18,10 +18,12 @@ TODO:
 ** Przerażająca wizja konfigurowania XMLi z bindingami
 
 * Mockito
-** Prosty i przyjazny interfejs ale...
-** Nie można mockować metod statycznych w klasach (np. w Beacon SDK)
-** Kłopoty z klasami zadeklarowanymi jako final?
-** Co jeśli mockowana funkcja ma po każdym wywołaniu dawać inne wartości?
+..* Prosty i przyjazny interfejs ale...
+..* Nie można mockować metod statycznych w klasach (np. w Beacon SDK)
+..* Kłopoty z klasami zadeklarowanymi jako final?
+..* Troch� dziwne wymagania je�li chodzi o mieszanie matcher�w i "raw" warto�ci
+..* K�opoty z redukcj� typ�w w templatach do object
+..* Mora�: tworz�c jakie� API mie� na uwadze to �e kto� mo�e chcie� je mockowa�...
 
 * Robolectric
 ** Ułatwia trochę życie z RoboGuice
@@ -29,8 +31,9 @@ TODO:
 ** Nie ma możliwości emulowania androidowych klas obsługujących bluetooth (mają modyfikator final)
 
 * 100% Code Coverage - nie jest możliwe
-** Cienka warstwa abstrakcji między SDK a modułem Beaconów
-** Użycie prostych lambd wpuszczanych w SDK
-** Narzędzie do CC w Android Studio ma fajne możliwości, ale jest dość głupie - pokazuje coverage klas systemowych...
+..* Cienka warstwa abstrakcji między SDK a modułem Beaconów
+..* Użycie prostych lambd wpuszczanych w SDK
+..* Narzędzie do CC w Android Studio ma fajne możliwości, ale jest dość głupie - pokazuje coverage klas systemowych...
+..* Ostateczny coverage wynosi ok. 80%
 
 * Tutaj machnąć pełny diagram klas modułu Bekonów z zależnościami - duży

@@ -2,6 +2,7 @@ package org.beaconmuseum.beaconmuseum;
 
 import com.kontakt.sdk.android.ble.discovery.EventType;
 
+import org.beaconmuseum.beaconmuseum.beacons.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +18,7 @@ public class BeaconsInRangeListTest {
 
     @Before
     public void setUp() throws Exception {
-        beaconsList = BeaconsInRangeList.getInstance();
+        beaconsList = new BeaconsInRangeList();
 
         beacon1 = new BeaconInfo("id1", "beacon 1", 20.0);
         beacon2 = new BeaconInfo("id2", "beacon 2", 50.0);
@@ -28,11 +29,6 @@ public class BeaconsInRangeListTest {
     @After
     public void tearDown() throws Exception {
         beaconsList.clearList();
-    }
-
-    @Test
-    public void testGetInstance() throws Exception {
-        assertNotNull(BeaconsInRangeList.getInstance());
     }
 
     @Test

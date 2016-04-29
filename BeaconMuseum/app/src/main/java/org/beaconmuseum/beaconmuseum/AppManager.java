@@ -1,5 +1,8 @@
 package org.beaconmuseum.beaconmuseum;
 
+import com.google.inject.Inject;
+import org.beaconmuseum.beaconmuseum.beacons.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,8 +18,10 @@ class myComparator implements Comparator<BeaconInfo> {
 }
 
 public class AppManager {
-    public static BeaconInfo[] refreshGUI() {
-        BeaconInfo bList[] = BeaconsInRangeList.getInstance().getList();
+    @Inject BeaconsInRangeList beaconsInRangeList;
+
+    public BeaconInfo[] refreshGUI() {
+        BeaconInfo bList[] = beaconsInRangeList.getList();
         Collections.sort(new ArrayList<>(Arrays.asList(bList)), new myComparator());
         return bList;
 

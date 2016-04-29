@@ -5,8 +5,6 @@ import com.kontakt.sdk.android.ble.discovery.*;
 import com.kontakt.sdk.android.ble.manager.ProximityManager;
 import com.kontakt.sdk.android.common.profile.*;
 
-import org.beaconmuseum.beaconmuseum.BeaconInfo;
-
 import java.util.*;
 
 @Singleton

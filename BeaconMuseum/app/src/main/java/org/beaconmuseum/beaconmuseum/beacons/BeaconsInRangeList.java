@@ -1,16 +1,14 @@
-package org.beaconmuseum.beaconmuseum;
+package org.beaconmuseum.beaconmuseum.beacons;
 
+import com.google.inject.Singleton;
 import com.kontakt.sdk.android.ble.discovery.EventType;
-
-import org.beaconmuseum.beaconmuseum.beacons.BeaconEventProcessorInterface;
-
 import java.util.HashSet;
 
 /**
  * Trzyma listę beaconów będących w zasięgu.
  */
+@Singleton
 public class BeaconsInRangeList implements BeaconEventProcessorInterface {
-    private static BeaconsInRangeList ourInstance = new BeaconsInRangeList();
     private HashSet<BeaconInfo> beacons = new HashSet<>();
 
     /**
@@ -18,11 +16,7 @@ public class BeaconsInRangeList implements BeaconEventProcessorInterface {
      *
      * @return obiekt singletona BeaconsInRangeList.
      */
-    public static BeaconsInRangeList getInstance() {
-        return ourInstance;
-    }
-
-    private BeaconsInRangeList() {}
+    public BeaconsInRangeList() {}
 
     /**
      * Pozwala uzyskać dostęp do listy beaconów w zasięgu.

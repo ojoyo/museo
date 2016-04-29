@@ -5,8 +5,6 @@ import com.google.inject.Singleton;
 import com.kontakt.sdk.android.ble.connection.OnServiceReadyListener;
 import android.content.Context;
 
-import org.beaconmuseum.beaconmuseum.BeaconsInRangeList;
-
 /**
  * Używany do uruchomienia i zatrzymania SDK. Należy użyć przed użyciem jakiejkolwiek
  * innej metody korzystającej z SDK.
@@ -17,6 +15,7 @@ public class BeaconManager {
     @Inject BeaconScanContext scanContext;
     @Inject BeaconEventListener eventListener;
     @Inject KontaktSDKWrapper kontaktSDK;
+    @Inject BeaconsInRangeList beaconsInRangeList;
 
     /**
      * Przygotowuje SDK i uruchamia nasłuchiwanie beaconów.
@@ -27,7 +26,7 @@ public class BeaconManager {
     public void initialize(Context context) {
         kontaktSDK.initialize(context);
 
-        eventListener.registerProcessor(BeaconsInRangeList.getInstance());
+        eventListener.registerProcessor(beaconsInRangeList);
 
         proximityManager.makeManager(context);
         proximityManager.initializeScan(scanContext.getScanContext(), new OnServiceReadyListener() {

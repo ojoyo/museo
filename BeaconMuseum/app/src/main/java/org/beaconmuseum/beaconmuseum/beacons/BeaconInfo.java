@@ -1,4 +1,4 @@
-package org.beaconmuseum.beaconmuseum;
+package org.beaconmuseum.beaconmuseum.beacons;
 
 import com.kontakt.sdk.android.common.profile.RemoteBluetoothDevice;
 
@@ -29,6 +29,9 @@ public class BeaconInfo {
 
     @Override
     public boolean equals(Object o) {
+        if (o == null)
+            return false;
+
         if (this == o)
             return true;
 
