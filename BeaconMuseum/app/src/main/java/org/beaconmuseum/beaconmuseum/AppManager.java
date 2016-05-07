@@ -24,8 +24,6 @@ public class AppManager {
         BeaconInfo bList[] = beaconsInRangeList.getList();
         Collections.sort(new ArrayList<>(Arrays.asList(bList)), new myComparator());
         return bList;
-
     }
-
 }
 

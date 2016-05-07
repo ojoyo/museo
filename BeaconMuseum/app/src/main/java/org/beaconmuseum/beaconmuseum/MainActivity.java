@@ -6,15 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 import com.google.inject.Inject;
-
-import org.beaconmuseum.beaconmuseum.beacons.BeaconInfo;
-import org.beaconmuseum.beaconmuseum.beacons.BeaconManager;
-
+import com.kontakt.sdk.android.ble.discovery.EventType;
 import roboguice.activity.RoboActivity;
+import org.beaconmuseum.beaconmuseum.beacons.*;
 
-public class MainActivity extends RoboActivity {
+public class MainActivity extends RoboActivity implements BeaconEventProcessorInterface {
     @Inject private BeaconManager beaconManager;
     @Inject private AppManager appManager;
+    @Inject private BeaconEventListener eventListener;
     private BluetoothAdapter btAdapter;
 
     BroadcastReceiver bluetoothState = new BroadcastReceiver() {
@@ -44,6 +43,7 @@ public class MainActivity extends RoboActivity {
         checkBluetoothConnection();
 
         beaconManager.initialize(this);
+        eventListener.registerProcessor(this);
     }
 
     private void checkBluetoothConnection() {
@@ -59,6 +59,11 @@ public class MainActivity extends RoboActivity {
             registerReceiver(bluetoothState, filter);
             startActivityForResult(new Intent(actionRequestEnable), 0);
         }
+    }
+
+    @Override
+    public void processBeaconEvent(EventType event, BeaconInfo beacon) {
+        refreshClick(null);
     }
 
     public void refreshClick(View v) {
