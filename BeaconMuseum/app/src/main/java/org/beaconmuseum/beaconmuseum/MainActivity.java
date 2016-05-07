@@ -49,6 +49,9 @@ public class MainActivity extends RoboActivity {
     private void checkBluetoothConnection() {
         btAdapter = BluetoothAdapter.getDefaultAdapter();
 
+        if (btAdapter == null)
+            return;
+
         if (!btAdapter.isEnabled()) {
             String actionStateChanged = BluetoothAdapter.ACTION_STATE_CHANGED;
             String actionRequestEnable = BluetoothAdapter.ACTION_REQUEST_ENABLE;
