@@ -1,7 +1,5 @@
 package org.beaconmuseum.beaconmuseum.map;
 
-import android.graphics.Point;
-
 /**
  * Interfejs do obiektu rysującego mapę pomieszczenia na ekranie.
  */
