@@ -7,4 +7,16 @@ public class Point {
         this.x = x;
         this.y = y;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+
+        if (!(obj instanceof Point))
+            return false;
+
+        Point p = (Point) obj;
+        return this.x == p.x && this.y == p.y;
+    }
 }

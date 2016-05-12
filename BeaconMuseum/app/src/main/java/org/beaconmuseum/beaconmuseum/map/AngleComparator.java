@@ -12,7 +12,7 @@ public class AngleComparator implements Comparator<Point> {
     @Override
     public int compare(Point p1, Point p2) {
         double result = product.product(p1.x, p1.y, p2.x, p2.y);
-        double epsilon = 0.001;
+        double epsilon = 0.000001;
 
         if (-epsilon <= result && result <= epsilon)
             return 0; // Punkty na tej samej prostej

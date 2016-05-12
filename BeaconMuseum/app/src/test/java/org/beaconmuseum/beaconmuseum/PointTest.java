@@ -12,4 +12,15 @@ public class PointTest {
         assertEquals(1.5, p.x, 0.1);
         assertEquals(-9.99, p.y, 0.01);
     }
+
+    @Test
+    public void testEquals() throws Exception {
+        Point p = new Point(1.0, 9.0);
+        Point p2 = new Point(1.0, 9.0);
+
+        assertFalse(p.equals(new Object()));
+        assertFalse(p.equals(null));
+        assertTrue(p.equals(p));
+        assertTrue(p.equals(p2));
+    }
 }
