@@ -1,9 +1,9 @@
 package org.beaconmuseum.beaconmuseum.map;
 
 public class Point {
-    public final double x, y;
+    public final float x, y;
 
-    public Point(double x, double y) {
+    public Point(float x, float y) {
         this.x = x;
         this.y = y;
     }
