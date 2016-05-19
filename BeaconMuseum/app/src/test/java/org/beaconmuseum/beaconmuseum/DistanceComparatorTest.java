@@ -10,10 +10,10 @@ public class DistanceComparatorTest {
 
     @Test
     public void testCompare() throws Exception {
-        Point p1 = new Point(0.0, 0.0);
-        Point p2 = new Point(0.0, 1.0);
-        Point p3 = new Point(-1.0, 0.0);
-        Point p4 = new Point(-100.0, 0.0);
+        Point p1 = new Point(0.0f, 0.0f);
+        Point p2 = new Point(0.0f, 1.0f);
+        Point p3 = new Point(-1.0f, 0.0f);
+        Point p4 = new Point(-100.0f, 0.0f);
 
         DistanceComparator comp = new DistanceComparator(p1);
 

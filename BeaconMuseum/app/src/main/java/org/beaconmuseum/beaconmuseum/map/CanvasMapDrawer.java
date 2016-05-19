@@ -1,8 +1,10 @@
 package org.beaconmuseum.beaconmuseum.map;
 
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CanvasMapDrawer implements MapDrawerInterface {
     Canvas surface;
@@ -30,9 +32,33 @@ public class CanvasMapDrawer implements MapDrawerInterface {
 
     @Override
     public void draw() {
-        // TODO: Rotacje i skalowanie canvasa
+        int margin = 10; // Margines w pikselach
+        Point[] pts = getPoints();
+        Matrix matrix = new Matrix();
 
+        new BestFitRotationFinder(pts).makeBestFit(matrix,
+                        surface.getHeight() - margin * 2,
+                        surface.getWidth() - margin * 2);
+
+        float scale = new ScaleComputator(pts).makeBestScale(matrix,
+                surface.getHeight() - margin * 2,
+                surface.getWidth() - margin * 2);
+        matrix.postScale(scale, scale); // TODO prescale????
+
+        // TODO przesunięcie z marginesem canvasa
+
+        surface.setMatrix(matrix);
         fastRedraw(observer);
+    }
+
+    private Point[] getPoints() {
+        ArrayList<Point> arr = new ArrayList<>();
+
+        arr.addAll(Arrays.asList(pois));
+        arr.addAll(Arrays.asList(room));
+        arr.add(observer);
+
+        return arr.toArray(new Point[0]);
     }
 
     private float[] convertPointsToFloatArray(Point[] pts) {
