@@ -32,20 +32,24 @@ public class CanvasMapDrawer implements MapDrawerInterface {
 
     @Override
     public void draw() {
-        int margin = 10; // Margines w pikselach
+        int margin = 30; // Margines w pikselach
+        int topBarMargin = 50; // Wysokość górnego paska
         Point[] pts = getPoints();
         Matrix matrix = new Matrix();
 
         new BestFitRotationFinder(pts).makeBestFit(matrix,
-                        surface.getHeight() - margin * 2,
+                        surface.getHeight() - margin * 2 - topBarMargin,
                         surface.getWidth() - margin * 2);
 
         float scale = new ScaleComputator(pts).makeBestScale(matrix,
-                surface.getHeight() - margin * 2,
+                surface.getHeight() - margin * 2 - topBarMargin,
                 surface.getWidth() - margin * 2);
-        matrix.postScale(scale, scale); // TODO prescale????
+        matrix.postScale(scale, scale);
 
-        // TODO przesunięcie z marginesem canvasa
+        // Translacja punktów do właściwego miejsca
+        MapOffsetFinder offset = new MapOffsetFinder(pts, matrix);
+        matrix.postTranslate(offset.getOffsetX(margin), 0);
+        matrix.postTranslate(0, offset.getOffsetY(margin + topBarMargin));
 
         surface.setMatrix(matrix);
         fastRedraw(observer);
