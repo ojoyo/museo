@@ -7,13 +7,19 @@ import android.view.View;
 import android.widget.*;
 import com.google.inject.Inject;
 import com.kontakt.sdk.android.ble.discovery.EventType;
+
+import roboguice.RoboGuice;
 import roboguice.activity.RoboActivity;
 import org.beaconmuseum.beaconmuseum.beacons.*;
 
 public class MainActivity extends RoboActivity implements BeaconEventProcessorInterface {
-    @Inject private BeaconManager beaconManager;
-    @Inject private AppManager appManager;
-    @Inject private BeaconEventListener eventListener;
+    static {
+        RoboGuice.setUseAnnotationDatabases(false);
+    }
+
+    @Inject BeaconManager beaconManager;
+    @Inject AppManager appManager;
+    @Inject BeaconEventListener eventListener;
     private BluetoothAdapter btAdapter;
 
     BroadcastReceiver bluetoothState = new BroadcastReceiver() {
