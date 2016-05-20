@@ -1,5 +1,7 @@
 package org.beaconmuseum.beaconmuseum.beacons;
 
+import android.util.Log;
+
 import com.google.inject.Inject;
 
 /**
@@ -26,6 +28,7 @@ public class NearestBeacon {
             if (i.range < result.range)
                 result = i;
 
+        Log.d("NEAREST", "najbliszy jest " + result.id + " odleglosc: " + result.range + "\n");
         return result;
     }
 }

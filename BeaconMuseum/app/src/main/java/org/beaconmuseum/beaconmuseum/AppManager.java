@@ -3,6 +3,8 @@ package org.beaconmuseum.beaconmuseum;
 import com.google.inject.Inject;
 import org.beaconmuseum.beaconmuseum.beacons.*;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -22,7 +24,7 @@ public class AppManager {
 
     public BeaconInfo[] refreshGUI() {
         BeaconInfo bList[] = beaconsInRangeList.getList();
-        Collections.sort(new ArrayList<>(Arrays.asList(bList)), new myComparator());
+        Arrays.sort(bList, new myComparator());
         return bList;
     }
 }

@@ -3,6 +3,7 @@ package org.beaconmuseum.beaconmuseum;
 import android.bluetooth.BluetoothAdapter;
 import android.content.*;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import com.google.inject.Inject;
@@ -75,10 +76,47 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
     public void refreshClick(View v) {
         BeaconInfo[] bList = appManager.refreshGUI();
         TextView textViewBig = (TextView)findViewById(R.id.textView);
-        for (int i = 0; i < bList.length; i++)
+        if(textViewBig == null)
+            return;
+
+        for (int i = 0; i < bList.length; i++) {
+            Log.d("rangelist", bList[i].id + ", odleglosc: " + bList[i].range + "\n");
             if (i == 0)
                 textViewBig.setText(bList[i].id);
             //TODO else inne beacony w dynamicznej liscie pod spodem (na razie jest statyczna!)
             // uzywac funkcji GUIManagera
+        }
+        Log.d("rangelist", "____\n");
+
     }
+
+    public void changeVIewTEst(View v) {
+        setContentView(R.layout.calibrator_assistent);
+
+        BeaconInfo[] bList = appManager.refreshGUI();
+        String[] bNamesList = new String[bList.length];
+        for (int i = 0; i < bList.length; i++) {
+            bNamesList[i] = bList[i].id;
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, bNamesList);
+
+        final ListView listView = (ListView) findViewById(R.id.listView);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (listView.isItemChecked(position))
+                    listView.setItemChecked(position, false);
+                else
+                    listView.setItemChecked(position, true);
+
+            }
+        });
+
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+    }
+
 }

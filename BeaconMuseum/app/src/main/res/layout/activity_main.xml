@@ -17,10 +17,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/beacon1"
         android:id="@+id/textView"
+        android:layout_marginTop="62dp"
+        android:textColor="#0faf0d"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="135dp"
-        android:textColor="#0faf0d" />
+        android:layout_alignEnd="@+id/button" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -65,6 +65,6 @@
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="refreshClick" />
+        android:onClick="changeVIewTEst" />
 
 </RelativeLayout>
