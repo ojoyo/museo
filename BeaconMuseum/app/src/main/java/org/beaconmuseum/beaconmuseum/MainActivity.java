@@ -5,6 +5,9 @@ import android.content.*;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.*;
 import com.google.inject.Inject;
 import com.kontakt.sdk.android.ble.discovery.EventType;
@@ -12,7 +15,8 @@ import com.kontakt.sdk.android.ble.discovery.EventType;
 import roboguice.RoboGuice;
 import roboguice.activity.RoboActivity;
 import org.beaconmuseum.beaconmuseum.beacons.*;
-import org.beaconmuseum.beaconmuseum.locator.IndoorLocator;
+
+import java.util.ArrayList;
 
 public class MainActivity extends RoboActivity implements BeaconEventProcessorInterface {
     static {
@@ -22,6 +26,7 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
     @Inject BeaconManager beaconManager;
     @Inject AppManager appManager;
     @Inject BeaconEventListener eventListener;
+
     private BluetoothAdapter btAdapter;
 
     BroadcastReceiver bluetoothState = new BroadcastReceiver() {
@@ -43,6 +48,43 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
         }
     };
 
+    private class ArtBrowser extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+    }
+
+    protected void initializeBrowser() {
+        WebView closestPainting = (WebView) findViewById(R.id.webView);
+        closestPainting.setWebViewClient(new ArtBrowser());
+        closestPainting.loadUrl("https://pl.wikipedia.org/wiki/Zdzis%C5%82aw_Beksi%C5%84ski");
+    }
+
+    protected void updateSlideMenu() {
+        HorizontalScrollView slideMenu = (HorizontalScrollView) findViewById(R.id.scrollView);
+        ArrayList<String> list = new ArrayList<>();
+        for (BeaconInfo beacon : appManager.refreshGUI()) {
+            list.add(beacon.id);
+        }
+        list.add("Just"); list.add("adding"); list.add("some");
+        list.add("words"); list.add("to"); list.add("make"); list.add("you"); list.add("see");
+        list.add("it"); list.add("slides");
+
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_1,
+                list);
+        if (slideMenu.getChildCount() == 0)
+            return;
+        ViewGroup parent = (ViewGroup) slideMenu.getChildAt(0);
+        parent.removeAllViews();
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            parent.addView(listAdapter.getView(i, null, parent));
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +94,9 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
 
         beaconManager.initialize(this);
         eventListener.registerProcessor(this);
+
+        initializeBrowser();
+        updateSlideMenu();
     }
 
     private void checkBluetoothConnection() {
@@ -71,10 +116,12 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
 
     @Override
     public void processBeaconEvent(EventType event, BeaconInfo beacon) {
-        refreshClick(null);
+        updateSlideMenu();
+        //refreshClick(null);
     }
 
-    public void refreshClick(View v) {
+    /*TODO tutaj będziemy apdejtować i listę, i stronę najbliższego beacona*/
+    /*public void refreshClick(View v) {
         BeaconInfo[] bList = appManager.refreshGUI();
         TextView textViewBig = (TextView)findViewById(R.id.textView);
         if(textViewBig == null)
@@ -89,11 +136,35 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
         }
         Log.d("rangelist", "____\n");
 
-    }
+    }*/
 
     public void changeVIewTEst(View v) {
-        IndoorLocator.init(this);
-        IndoorLocator.calibrate();
+        setContentView(R.layout.calibrator_assistent);
+
+        BeaconInfo[] bList = appManager.refreshGUI();
+        String[] bNamesList = new String[bList.length];
+        for (int i = 0; i < bList.length; i++) {
+            bNamesList[i] = bList[i].id;
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, bNamesList);
+
+        final ListView listView = (ListView) findViewById(R.id.listView);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (listView.isItemChecked(position))
+                    listView.setItemChecked(position, false);
+                else
+                    listView.setItemChecked(position, true);
+
+            }
+        });
+
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
     }
 
 }

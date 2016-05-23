@@ -17,8 +17,8 @@ public class GUIManager {
         text2.setText(tmp);
     }
 
-    public static void swapWithClosest(TextView text) {
+    /*public static void swapWithClosest(TextView text) {
         TextView t = (TextView) _activity.findViewById(R.id.textView);
         swapBeacons(text,t);
-    }
+    }*/
 }
