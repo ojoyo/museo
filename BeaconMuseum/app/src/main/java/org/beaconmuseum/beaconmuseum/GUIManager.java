@@ -21,4 +21,10 @@ public class GUIManager {
         TextView t = (TextView) _activity.findViewById(R.id.textView);
         swapBeacons(text,t);
     }*/
+
+    public static String getBeaconLink(int aString) {
+        String packageName = _activity.getPackageName();
+        return _activity.getString(aString);
+    }
 }
+
