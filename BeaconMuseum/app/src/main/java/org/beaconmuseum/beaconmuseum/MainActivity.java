@@ -74,20 +74,34 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
         list.add("words"); list.add("to"); list.add("make"); list.add("you"); list.add("see");
         list.add("it"); list.add("slides");
 
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_list_item_1,
-                list);
-        if (slideMenu == null)
+        LinearLayout ll = new LinearLayout(this);
+        ll.setOrientation(LinearLayout.HORIZONTAL);
+        if(slideMenu == null)
             return;
-        if (slideMenu.getChildCount() == 0)
-            return;
-        ViewGroup parent = (ViewGroup) slideMenu.getChildAt(0);
-        parent.removeAllViews();
-        final int adapterCount = listAdapter.getCount();
-        for (int i = 0; i < adapterCount; i++) {
-            parent.addView(listAdapter.getView(i, null, parent));
+        slideMenu.removeAllViews();
+        slideMenu.addView(ll);
+
+        for (String str: list) {
+            Button b = new Button(this);
+            b.setText(str);
+            ll.addView(b);
         }
+
+        //this.setContentView(slideMenu);
+//        ArrayAdapter<String> listAdapter = new ArrayAdapter<>(
+//                this,
+//                android.R.layout.simple_list_item_1,
+//                list);
+//        if (slideMenu == null)
+//            return;
+//        if (slideMenu.getChildCount() == 0)
+//            return;
+//        ViewGroup parent = (ViewGroup) slideMenu.getChildAt(0);
+//        parent.removeAllViews();
+//        final int adapterCount = listAdapter.getCount();
+//        for (int i = 0; i < adapterCount; i++) {
+//            parent.addView(listAdapter.getView(i, null, parent));
+//        }
     }
 
     @Override
