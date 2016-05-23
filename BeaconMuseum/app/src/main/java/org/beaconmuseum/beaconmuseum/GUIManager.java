@@ -22,9 +22,8 @@ public class GUIManager {
         swapBeacons(text,t);
     }*/
 
-    public static String getBeaconLink(int aString) {
-        String packageName = _activity.getPackageName();
-        return _activity.getString(aString);
-    }
+//    public static String getBeaconLink(int aString) {
+//        return _activity.getString(aString);
+//    }
 }
 

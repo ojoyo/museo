@@ -92,6 +92,7 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
     private void displayAnotherPainting(View v) {
         Button b = (Button) v;
         String beaconName = b.getText().toString();
+
     }
 
     @Override
