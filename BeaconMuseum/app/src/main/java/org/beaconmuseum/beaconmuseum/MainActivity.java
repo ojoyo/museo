@@ -12,6 +12,7 @@ import com.kontakt.sdk.android.ble.discovery.EventType;
 import roboguice.RoboGuice;
 import roboguice.activity.RoboActivity;
 import org.beaconmuseum.beaconmuseum.beacons.*;
+import org.beaconmuseum.beaconmuseum.locator.IndoorLocator;
 
 public class MainActivity extends RoboActivity implements BeaconEventProcessorInterface {
     static {
@@ -91,32 +92,8 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
     }
 
     public void changeVIewTEst(View v) {
-        setContentView(R.layout.calibrator_assistent);
-
-        BeaconInfo[] bList = appManager.refreshGUI();
-        String[] bNamesList = new String[bList.length];
-        for (int i = 0; i < bList.length; i++) {
-            bNamesList[i] = bList[i].id;
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, bNamesList);
-
-        final ListView listView = (ListView) findViewById(R.id.listView);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (listView.isItemChecked(position))
-                    listView.setItemChecked(position, false);
-                else
-                    listView.setItemChecked(position, true);
-
-            }
-        });
-
-        listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-
+        IndoorLocator.init(this);
+        IndoorLocator.calibrate();
     }
 
 }

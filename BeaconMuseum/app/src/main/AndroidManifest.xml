@@ -20,6 +20,14 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".CalibrateActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.ASSIST" />
+
+                <category android:name="android.intent.category.EMBED" />
+            </intent-filter>
+        </activity>
+
         <service android:name="com.kontakt.sdk.android.ble.service.ProximityService" android:exported="false"/>
     </application>
 

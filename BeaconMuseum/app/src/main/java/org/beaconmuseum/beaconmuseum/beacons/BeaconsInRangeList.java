@@ -14,6 +14,8 @@ import java.util.Map;
 public class BeaconsInRangeList implements BeaconEventProcessorInterface {
     private Map<String, BeaconInfo> beacons = new HashMap<>();
 
+    private static boolean isInstance = false;
+    static BeaconsInRangeList singleton = new BeaconsInRangeList();
     /**
      * Daje dostęp do instancji singletona.
      *
@@ -21,31 +23,36 @@ public class BeaconsInRangeList implements BeaconEventProcessorInterface {
      */
     public BeaconsInRangeList() {}
 
+    public static BeaconsInRangeList getInstance() {
+        return singleton;
+    }
+
     /**
      * Pozwala uzyskać dostęp do listy beaconów w zasięgu.
      *
      * @return tablica obiektów typu BeaconInfo
      */
     public BeaconInfo[] getList() {
-        return beacons.values().toArray(new BeaconInfo[0]);
+        return singleton.beacons.values().toArray(new BeaconInfo[0]);
     }
+    public Map<String, BeaconInfo> getMap() { return new HashMap<>(singleton.beacons); }
 
     public void clearList() {
-        beacons.clear();
+        singleton.beacons.clear();
     }
 
     public void processBeaconEvent(EventType event, BeaconInfo beacon) {
         switch (event) {
             case DEVICE_DISCOVERED:
-                beacons.remove(beacon.id);
-                beacons.put(beacon.id, beacon);
+                singleton.beacons.remove(beacon.id);
+                singleton.beacons.put(beacon.id, beacon);
                 break;
             case DEVICES_UPDATE:
-                beacons.remove(beacon.id);
-                beacons.put(beacon.id, beacon);
+                singleton.beacons.remove(beacon.id);
+                singleton.beacons.put(beacon.id, beacon);
                 break;
             case DEVICE_LOST:
-                beacons.remove(beacon.id);
+                singleton.beacons.remove(beacon.id);
                 break;
         }
     }

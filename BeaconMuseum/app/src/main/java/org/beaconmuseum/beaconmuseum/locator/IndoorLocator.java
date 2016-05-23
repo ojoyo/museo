@@ -1,5 +1,6 @@
 package org.beaconmuseum.beaconmuseum.locator;
 
+import android.content.Context;
 import android.util.Pair;
 
 import org.beaconmuseum.beaconmuseum.beacons.BeaconInfo;
@@ -21,35 +22,36 @@ public class IndoorLocator {
     private Map<String, Point> beaconPositions = new HashMap<>();
     private List<Point> verticles = new ArrayList<>();
 
-    public static void init() {
+    private Context context;
+
+    IndoorLocator(Context context) { this.context = context; }
+
+    public static void init(Context context) {
         if (!initialized) {
-            instance = new IndoorLocator();
+            instance = new IndoorLocator(context);
             initialized = true;
         }
     }
 
-    public boolean calibrate() {
+    public static boolean calibrate() {
         if (!initialized)
             return false;
+        Calibrator calibrator = new Calibrator();
 
-//        Calibrator.walkTheRoom();
-//
-//        beaconPositions = Calibrator.deliverBeaconPositions();
-//        verticles = Calibrator.deliverVerticles();
+        calibrator.walkTheRoom(instance.context); // można przenieść do konstruktora
+
+        instance.beaconPositions = Calibrator.deliverBeaconPositions();
+        instance.verticles = Calibrator.deliverVerticles();
 
         return true;
     }
 
-    public Point getBeaconPosition(String id) {
-        return beaconPositions.get(id);
-    }
+    public static Point getBeaconPosition(String id) { return instance.beaconPositions.get(id); }
 
-    public Point getBeaconPosition(BeaconInfo bi) {
-        return getBeaconPosition(bi.id);
-    }
+    public static Point getBeaconPosition(BeaconInfo bi) { return getBeaconPosition(bi.id); }
 
-    public Point[] getVerticles() {
-        return verticles.toArray(new Point[verticles.size()]);
+    public static Point[] getVerticles() {
+        return instance.verticles.toArray(new Point[instance.verticles.size()]);
     }
 
     public Point getPosition() {
