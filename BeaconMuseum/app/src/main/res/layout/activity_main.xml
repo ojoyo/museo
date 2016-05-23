@@ -1,70 +1,37 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     tools:context="org.beaconmuseum.beaconmuseum.MainActivity"
     android:focusableInTouchMode="false"
-    android:transitionGroup="false">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/beacon1"
-        android:id="@+id/textView"
-        android:layout_marginTop="62dp"
-        android:textColor="#0faf0d"
-        android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/button" />
-
+    android:transitionGroup="false"
+    >
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="66dp">
-
-        <TextView
+        android:layout_height="match_parent"
+        android:layout_weight=".90"
+        android:orientation="vertical">
+        <WebView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/webView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/beacon2"
-            android:id="@+id/textView2"
-            android:layout_marginBottom="139dp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/beacon3"
-            android:id="@+id/textView3" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/beacon4"
-            android:id="@+id/textView4" />
-
+            />
     </LinearLayout>
-
-    <Button
+    <HorizontalScrollView
+        android:id="@+id/scrollView"
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="REFRESH"
-        android:id="@+id/button"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="changeVIewTEst" />
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/slideLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </LinearLayout>
 
-</RelativeLayout>
+    </HorizontalScrollView>
+
+</LinearLayout>
