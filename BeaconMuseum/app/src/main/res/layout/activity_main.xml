@@ -20,6 +20,16 @@
             android:layout_height="wrap_content"
             />
     </LinearLayout>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/button"
+        android:layout_gravity="right"
+        android:onClick="changeVIewTEst" />
+
     <HorizontalScrollView
         android:id="@+id/scrollView"
         android:orientation="horizontal"
@@ -27,7 +37,7 @@
         android:layout_height="wrap_content">
         <LinearLayout
             android:orientation="horizontal"
-            android:id="@+id/slideLayout"
+            android:id="@+id/slideLayout1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </LinearLayout>

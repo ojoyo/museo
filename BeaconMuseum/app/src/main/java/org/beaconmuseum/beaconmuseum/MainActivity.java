@@ -15,6 +15,7 @@ import com.kontakt.sdk.android.ble.discovery.EventType;
 import roboguice.RoboGuice;
 import roboguice.activity.RoboActivity;
 import org.beaconmuseum.beaconmuseum.beacons.*;
+import org.beaconmuseum.beaconmuseum.locator.IndoorLocator;
 
 import java.util.ArrayList;
 
@@ -67,6 +68,7 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
         ArrayList<String> list = new ArrayList<>();
         for (BeaconInfo beacon : appManager.refreshGUI()) {
             list.add(beacon.id);
+            Log.d("update slide", beacon.id);
         }
         list.add("Just"); list.add("adding"); list.add("some");
         list.add("words"); list.add("to"); list.add("make"); list.add("you"); list.add("see");
@@ -76,11 +78,14 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
                 this,
                 android.R.layout.simple_list_item_1,
                 list);
+        if (slideMenu == null)
+            return;
         if (slideMenu.getChildCount() == 0)
             return;
         ViewGroup parent = (ViewGroup) slideMenu.getChildAt(0);
         parent.removeAllViews();
-        for (int i = 0; i < listAdapter.getCount(); i++) {
+        final int adapterCount = listAdapter.getCount();
+        for (int i = 0; i < adapterCount; i++) {
             parent.addView(listAdapter.getView(i, null, parent));
         }
     }
@@ -141,29 +146,8 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
     public void changeVIewTEst(View v) {
         setContentView(R.layout.calibrator_assistent);
 
-        BeaconInfo[] bList = appManager.refreshGUI();
-        String[] bNamesList = new String[bList.length];
-        for (int i = 0; i < bList.length; i++) {
-            bNamesList[i] = bList[i].id;
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, bNamesList);
-
-        final ListView listView = (ListView) findViewById(R.id.listView);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (listView.isItemChecked(position))
-                    listView.setItemChecked(position, false);
-                else
-                    listView.setItemChecked(position, true);
-
-            }
-        });
-
-        listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        IndoorLocator.init(this);
+        IndoorLocator.calibrate();
 
     }
 
