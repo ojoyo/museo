@@ -70,9 +70,9 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
             list.add(beacon.id);
             Log.d("update slide", beacon.id);
         }
-        list.add("Just"); list.add("adding"); list.add("some");
-        list.add("words"); list.add("to"); list.add("make"); list.add("you"); list.add("see");
-        list.add("it"); list.add("slides");
+//        list.add("Just"); list.add("adding"); list.add("some");
+//        list.add("words"); list.add("to"); list.add("make"); list.add("you"); list.add("see");
+//        list.add("it"); list.add("slides");
 
         LinearLayout ll = new LinearLayout(this);
         ll.setOrientation(LinearLayout.HORIZONTAL);
@@ -84,6 +84,12 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
         for (String str: list) {
             Button b = new Button(this);
             b.setText(str);
+            b.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    displayAnotherPainting(v);
+                }
+            });
             ll.addView(b);
         }
 
@@ -102,6 +108,11 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
 //        for (int i = 0; i < adapterCount; i++) {
 //            parent.addView(listAdapter.getView(i, null, parent));
 //        }
+    }
+
+    private void displayAnotherPainting(View v) {
+        Button b = (Button) v;
+        String beaconName = b.getText().toString();
     }
 
     @Override
