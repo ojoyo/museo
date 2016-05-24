@@ -27,6 +27,7 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
     @Inject BeaconEventListener eventListener;
 
     BtBroadcastReceiver bluetoothState = new BtBroadcastReceiver();
+    RemoteDBManager dbManager = new RemoteDBManager();
 
     private class ArtBrowser extends WebViewClient {
         @Override
