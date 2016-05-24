@@ -44,55 +44,45 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
     }
 
     protected void updateSlideMenu() {
-        HorizontalScrollView slideMenu = (HorizontalScrollView) findViewById(R.id.scrollView);
-        ArrayList<String> list = new ArrayList<>();
+        final MainActivity t = this;
+        final HorizontalScrollView slideMenu = (HorizontalScrollView) findViewById(R.id.scrollView);
+        final ArrayList<String> list = new ArrayList<>();
+        final LinearLayout ll = new LinearLayout(this);
         for (BeaconInfo beacon : appManager.refreshGUI()) {
+            Log.d("Update beacon", beacon.id);
             list.add(beacon.id);
-            Log.d("update slide", beacon.id);
         }
-//        list.add("Just"); list.add("adding"); list.add("some");
-//        list.add("words"); list.add("to"); list.add("make"); list.add("you"); list.add("see");
-//        list.add("it"); list.add("slides");
-
-        LinearLayout ll = new LinearLayout(this);
-        ll.setOrientation(LinearLayout.HORIZONTAL);
-        if(slideMenu == null)
-            return;
-        slideMenu.removeAllViews();
-        slideMenu.addView(ll);
-
-        for (String str: list) {
-            Button b = new Button(this);
-            b.setText(str);
-            b.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    displayAnotherPainting(v);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ll.setOrientation(LinearLayout.HORIZONTAL);
+                if (slideMenu == null) {
+                    return;
                 }
-            });
-            ll.addView(b);
-        }
+                slideMenu.removeAllViews();
+                slideMenu.addView(ll);
+                for (String str : list) {
+                    Log.d("str", str);
+                    Button b = new Button(t);
+                    b.setText(str);
+                    b.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            displayAnotherPainting(v);
+                        }
+                    });
+                    ll.addView(b);
+                }
 
-        //this.setContentView(slideMenu);
-//        ArrayAdapter<String> listAdapter = new ArrayAdapter<>(
-//                this,
-//                android.R.layout.simple_list_item_1,
-//                list);
-//        if (slideMenu == null)
-//            return;
-//        if (slideMenu.getChildCount() == 0)
-//            return;
-//        ViewGroup parent = (ViewGroup) slideMenu.getChildAt(0);
-//        parent.removeAllViews();
-//        final int adapterCount = listAdapter.getCount();
-//        for (int i = 0; i < adapterCount; i++) {
-//            parent.addView(listAdapter.getView(i, null, parent));
-//        }
+                slideMenu.refreshDrawableState();
+            }
+        });
     }
 
     private void displayAnotherPainting(View v) {
         Button b = (Button) v;
         String beaconName = b.getText().toString();
+
     }
 
     @Override
@@ -111,7 +101,14 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
 
     @Override
     public void processBeaconEvent(EventType event, BeaconInfo beacon) {
-        updateSlideMenu();
+        if (event == EventType.DEVICE_DISCOVERED) {
+            Log.d("device discovered", beacon.id);
+            updateSlideMenu();
+        }
+        if (event == EventType.DEVICE_LOST) {
+            Log.d("device lost", beacon.id);
+            updateSlideMenu();
+        }
         //refreshClick(null);
     }
 
