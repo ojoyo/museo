@@ -11,14 +11,14 @@ public class MapOffsetFinder {
         this.matrix = matrix;
     }
 
-    public float getOffsetX(float begin) {
+    private float checkAxis(float begin, int axis) {
         float[] arr = new float[]{
                 pts[0].x,
                 pts[0].y,
         };
 
         matrix.mapPoints(arr);
-        float offset = arr[0];
+        float offset = arr[axis];
 
         for (Point p : pts) {
             arr = new float[]{
@@ -28,34 +28,18 @@ public class MapOffsetFinder {
 
             matrix.mapPoints(arr);
 
-            if (offset > arr[0])
-                offset = arr[0];
+            if (offset > arr[axis])
+                offset = arr[axis];
         }
 
         return begin - offset;
     }
 
+    public float getOffsetX(float begin) {
+        return checkAxis(begin, 0);
+    }
+
     public float getOffsetY(float begin) {
-        float[] arr = new float[]{
-                pts[0].x,
-                pts[0].y,
-        };
-
-        matrix.mapPoints(arr);
-        float offset = arr[1];
-
-        for (Point p : pts) {
-            arr = new float[]{
-                    p.x,
-                    p.y,
-            };
-
-            matrix.mapPoints(arr);
-
-            if (offset > arr[1])
-                offset = arr[1];
-        }
-
-        return begin - offset;
+        return checkAxis(begin, 1);
     }
 }

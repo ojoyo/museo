@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class CanvasMapDrawer implements MapDrawerInterface {
+    private final int margin = 30; // Margines w pikselach
     Canvas surface;
     Point observer;
     Point[] pois, room;
+    PointToArrayConverter converter = new PointToArrayConverter();
+    MapMatrixMaker matrixMaker = new MapMatrixMaker();
 
     public CanvasMapDrawer(Canvas canvas) {
         surface = canvas;
@@ -32,25 +35,9 @@ public class CanvasMapDrawer implements MapDrawerInterface {
 
     @Override
     public void draw() {
-        int margin = 30; // Margines w pikselach
-        int topBarMargin = 50; // Wysokość górnego paska
         Point[] pts = getPoints();
         Matrix matrix = new Matrix();
-
-        new BestFitRotationFinder(pts).makeBestFit(matrix,
-                        surface.getHeight() - margin * 2 - topBarMargin,
-                        surface.getWidth() - margin * 2);
-
-        float scale = new ScaleComputator(pts).makeBestScale(matrix,
-                surface.getHeight() - margin * 2 - topBarMargin,
-                surface.getWidth() - margin * 2);
-        matrix.postScale(scale, scale);
-
-        // Translacja punktów do właściwego miejsca
-        MapOffsetFinder offset = new MapOffsetFinder(pts, matrix);
-        matrix.postTranslate(offset.getOffsetX(margin), 0);
-        matrix.postTranslate(0, offset.getOffsetY(margin + topBarMargin));
-
+        matrixMaker.makeMatrix(matrix, pts, margin, surface.getWidth(), surface.getHeight());
         surface.setMatrix(matrix);
         fastRedraw(observer);
     }
@@ -65,31 +52,12 @@ public class CanvasMapDrawer implements MapDrawerInterface {
         return arr.toArray(new Point[0]);
     }
 
-    private float[] convertPointsToFloatArray(Point[] pts) {
-        float[] ret = new float[pts.length * 4];
-
-        ret[0] = pts[0].x;
-        ret[1] = pts[0].y;
-
-        for (int i = 1; i < pts.length; ++i) {
-            ret[4 * i - 2] = pts[i].x;
-            ret[4 * i - 1] = pts[i].y;
-            ret[4 * i] = pts[i].x;
-            ret[4 * i + 1] = pts[i].y;
-        }
-
-        ret[ret.length - 2] = pts[0].x;
-        ret[ret.length - 1] = pts[0].y;
-
-        return ret;
-    }
-
     @Override
     public void fastRedraw(Point observer) {
         CanvasStyles styles = new CanvasStyles();
 
         // Rysowanie granicy pomieszczenia
-        surface.drawLines(convertPointsToFloatArray(room), styles.getLineStyle());
+        surface.drawLines(converter.convertPointsToFloatArray(room), styles.getLineStyle());
 
         // Rysowanie POI
         for (Point p : pois) {
