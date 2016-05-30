@@ -25,6 +25,7 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
     @Inject BeaconManager beaconManager;
     @Inject AppManager appManager;
     @Inject BeaconEventListener eventListener;
+    @Inject BeaconSwitchSettings beaconSwitchSettings;
 
     BtBroadcastReceiver bluetoothState = new BtBroadcastReceiver();
     RemoteDBManager dbManager = new RemoteDBManager();
@@ -43,47 +44,7 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
         closestPainting.loadUrl("https://pl.wikipedia.org/wiki/Zdzis%C5%82aw_Beksi%C5%84ski");
     }
 
-    protected void updateSlideMenu() {
-        final MainActivity t = this;
-        final HorizontalScrollView slideMenu = (HorizontalScrollView) findViewById(R.id.scrollView);
-        final ArrayList<String> list = new ArrayList<>();
-        final LinearLayout ll = new LinearLayout(this);
-        for (BeaconInfo beacon : appManager.refreshGUI()) {
-            Log.d("Update beacon", beacon.id);
-            list.add(beacon.id);
-        }
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                ll.setOrientation(LinearLayout.HORIZONTAL);
-                if (slideMenu == null) {
-                    return;
-                }
-                slideMenu.removeAllViews();
-                slideMenu.addView(ll);
-                for (String str : list) {
-                    Log.d("str", str);
-                    Button b = new Button(t);
-                    b.setText(str);
-                    b.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            displayAnotherPainting(v);
-                        }
-                    });
-                    ll.addView(b);
-                }
 
-                slideMenu.refreshDrawableState();
-            }
-        });
-    }
-
-    private void displayAnotherPainting(View v) {
-        Button b = (Button) v;
-        String beaconName = b.getText().toString();
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,18 +57,18 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
         eventListener.registerProcessor(this);
 
         initializeBrowser();
-        updateSlideMenu();
+        beaconSwitchSettings.updateSlideMenu(this);
     }
 
     @Override
     public void processBeaconEvent(EventType event, BeaconInfo beacon) {
         if (event == EventType.DEVICE_DISCOVERED) {
             Log.d("device discovered", beacon.id);
-            updateSlideMenu();
+            beaconSwitchSettings.updateSlideMenu(this);
         }
         if (event == EventType.DEVICE_LOST) {
             Log.d("device lost", beacon.id);
-            updateSlideMenu();
+            beaconSwitchSettings.updateSlideMenu(this);
         }
         //refreshClick(null);
     }
