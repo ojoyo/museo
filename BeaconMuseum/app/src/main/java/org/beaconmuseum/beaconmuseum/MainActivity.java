@@ -44,8 +44,6 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
         closestPainting.loadUrl("https://pl.wikipedia.org/wiki/Zdzis%C5%82aw_Beksi%C5%84ski");
     }
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
