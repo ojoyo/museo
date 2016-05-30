@@ -49,6 +49,7 @@ public class Calibrator {
             bListNames[i] = bList[i].id;
         }
 
+
         basket.putInt("quantity", bListNames.length);
         basket.putStringArray("beaconList", bListNames);
 
