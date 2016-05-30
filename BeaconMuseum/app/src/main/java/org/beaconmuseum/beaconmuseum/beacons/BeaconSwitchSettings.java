@@ -90,7 +90,7 @@ public class BeaconSwitchSettings {
         Button b = (Button) v;
         String beaconName = b.getText().toString();
         Log.d("button", beaconName);
-        String link = GUIManager.getBeaconLink(nearestBeacon.getInfo().id);
+        String link = GUIManager.getBeaconLink(beaconName);
 
         ToggleButton tb =  (ToggleButton)_activity.findViewById(R.id.toggle_button);
         tb.setChecked(true);
