@@ -9,7 +9,7 @@ public class ToggleManualMode implements CompoundButton.OnCheckedChangeListener 
     @Inject private BeaconSwitchSettings settings;
 
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked == settings.isManualModeOn())
+        if (isChecked != settings.isManualModeOn())
             settings.toggleMode();
     }
 }

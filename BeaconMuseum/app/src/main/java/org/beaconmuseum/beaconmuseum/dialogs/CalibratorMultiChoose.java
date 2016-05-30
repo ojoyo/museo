@@ -6,20 +6,26 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Pair;
 import android.widget.Toast;
 
+import org.beaconmuseum.beaconmuseum.locator.Calibrator;
+
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 /**
  * Created by skazy on 23.05.16.
  */
 public class CalibratorMultiChoose {
 
+    public static Map<Pair<String, String>, Double> distanceMap;
     public static AlertDialog.Builder getBuilder(final Context context, final int ile,
-                                                 String[] bListNames, final List<Integer> selected) {
+                                                 final String[] bListNames, final List<Integer> selected ) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-        builder.setTitle("Wybierz" + ile + "beacony do kalibracji")
+        builder.setTitle("Wybierz " + ile + " beacony do kalibracji")
                 .setMultiChoiceItems(bListNames, null,
                         new DialogInterface.OnMultiChoiceClickListener() {
                             int count = 0;
@@ -52,6 +58,8 @@ public class CalibratorMultiChoose {
                         // User clicked OK, so save the mSelectedItems results somewhere
                         // or return them to the component that opened the dialog
                         if (selected.size() == ile) {
+                            distanceMap = Calibrator.continuusStand(context, bListNames[selected.get(0)],
+                                    bListNames[selected.get(1)], bListNames[selected.get(1)]); //ma byuc 2!!1 TODO: 23.05.16
                             dialog.dismiss();
                         } else
                             Toast.makeText(context, "Wybierz dokładnie 3 beacony!", Toast.LENGTH_SHORT)
@@ -67,4 +75,5 @@ public class CalibratorMultiChoose {
 
         return builder;
     }
+
 }

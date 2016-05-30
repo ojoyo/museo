@@ -23,7 +23,7 @@ public class AppManager {
     @Inject BeaconsInRangeList beaconsInRangeList;
 
     public BeaconInfo[] refreshGUI() {
-        BeaconInfo bList[] = beaconsInRangeList.getList();
+        BeaconInfo bList[] =  BeaconsInRangeList.getInstance().getList();
         Arrays.sort(bList, new myComparator());
         return bList;
     }

@@ -37,6 +37,8 @@ public class BeaconsInRangeList implements BeaconEventProcessorInterface {
     }
     public Map<String, BeaconInfo> getMap() { return new HashMap<>(singleton.beacons); }
 
+    public static double getDistance(String bName){ return singleton.beacons.get(bName).range; }
+
     public void clearList() {
         singleton.beacons.clear();
     }

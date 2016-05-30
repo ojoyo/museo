@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.widget.Toast;
 
 import org.beaconmuseum.beaconmuseum.AppManager;
@@ -18,17 +19,20 @@ import org.beaconmuseum.beaconmuseum.beacons.BeaconInfo;
 import org.beaconmuseum.beaconmuseum.beacons.BeaconManager;
 import org.beaconmuseum.beaconmuseum.beacons.BeaconsInRangeList;
 import org.beaconmuseum.beaconmuseum.dialogs.CalibratorMultiChoose;
+import org.beaconmuseum.beaconmuseum.dialogs.CalibratorStandHere;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 /**
  * Created by skazy on 20.05.16.
  */
 public class Calibrator {
     private static boolean calibrated = false;
+    private static Point[] triangle;
 
     public void walkTheRoom(final Context context) {
         // wyświetl dialog itd.
@@ -48,34 +52,43 @@ public class Calibrator {
         basket.putInt("quantity", bListNames.length);
         basket.putStringArray("beaconList", bListNames);
 
-        final int ile = 3;
+        final int ile = 2;
         final List<Integer> selected = new ArrayList<>(ile);
-
         AlertDialog.Builder builder =
                 CalibratorMultiChoose.getBuilder(context, ile, bListNames, selected);
 
         AlertDialog dialog = builder.create();
         dialog.show();
 
-        if (selected.size() != ile)
+        if (selected.size() != ile) // usunac w release TODO
             return;
-        Log.d("calib", "po dialogu");
 
-        //intent.putExtras(basket);
-        //context.startActivity(intent);
-
-        BeaconInfo w1, w2, w3;
-        Map<String, BeaconInfo> map = BeaconsInRangeList.getInstance().getMap();
-        w1 = map.get(bListNames[selected.get(0)]);
-        w2 = map.get(bListNames[selected.get(1)]);
-        w3 = map.get(bListNames[selected.get(2)]);
+        Map< Pair<String, String>, Double> distances = CalibratorMultiChoose.distanceMap;
+        //        Map<String, BeaconInfo> map = BeaconsInRangeList.getInstance().getMap();
+//        w1 = map.get(bListNames[selected.get(0)]);
+//        w2 = map.get(bListNames[selected.get(1)]);
+//        w3 = map.get(bListNames[selected.get(2)]);
         // juz zakładamy że są ustawione
 
-        Log.d("binfo", w1.id + w2.id + w3.id);
+        double a_b, a_c, c_b, c_a;
+        //triangle = LogicCalc.makeTriangle(a_b, a_c, c_b, c_a);
 
 
-        calibrated = true;
+//        calibrated = true;
     }
+
+    public static Map<Pair<String, String>, Double> continuusStand(Context context, String str,
+                                                String otherB1, String otherB2 ) {
+        Log.d("przed", "jw");
+        Map< Pair<String, String>, Double> distances = new HashMap<>();
+        AlertDialog stand = CalibratorStandHere.standPlease(context, str, distances,
+                otherB1, otherB2, 1);
+        stand.show();
+
+        Log.d("elo", "siema");
+        return distances;
+    }
+
 
     public static HashMap<String, Point> deliverBeaconPositions() {
         if (!calibrated)

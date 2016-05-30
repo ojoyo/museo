@@ -7,6 +7,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.content.Context;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -87,7 +88,8 @@ public class BeaconSwitchSettings {
     private void displayAnotherPainting(View v) {
         Button b = (Button) v;
         String beaconName = b.getText().toString();
-        String link = GUIManager.getBeaconLink(beaconName);
+        Log.d("button", beaconName);
+        String link = GUIManager.getBeaconLink(nearestBeacon.getInfo().id);
 
         WebView closestPainting = (WebView) _activity.findViewById(R.id.webView);
         closestPainting.loadUrl(link);
