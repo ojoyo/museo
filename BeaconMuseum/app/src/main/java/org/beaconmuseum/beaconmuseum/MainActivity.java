@@ -82,7 +82,9 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
     private void displayAnotherPainting(View v) {
         Button b = (Button) v;
         String beaconName = b.getText().toString();
-
+        WebView painting = (WebView) findViewById(R.id.webView);
+        painting.setWebViewClient(new ArtBrowser());
+        painting.loadUrl(dbManager.getUrlFromDatabase(beaconName));
     }
 
     @Override

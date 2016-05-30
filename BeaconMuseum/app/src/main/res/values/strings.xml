@@ -4,9 +4,10 @@
 
 
 
-    <!-- Beacon names (or later - art sample names) -->
-    <string name="lmVO">https://pl.wikipedia.org/wiki/Mona_Lisa</string>
-    <string name="MnPb">https://pl.wikipedia.org/wiki/Nocne_marki</string>
-    <string name="qqgj">https://en.wikipedia.org/wiki/The_Starry_Night</string>
-    <string name="rWmP">https://pl.wikipedia.org/wiki/Ostatnia_Wieczerza_(obraz_Leonarda_da_Vinci)</string>
+    <!--&lt;!&ndash; Beacon names (or later - art sample names) &ndash;&gt;-->
+    <!--<string name="lmVO">https://pl.wikipedia.org/wiki/Mona_Lisa</string>-->
+    <!--<string name="MnPb">https://pl.wikipedia.org/wiki/Nocne_marki</string>-->
+    <!--<string name="qqgj">https://en.wikipedia.org/wiki/The_Starry_Night</string>-->
+    <!--<string name="rWmP">https://pl.wikipedia.org/wiki/Ostatnia_Wieczerza_(obraz_Leonarda_da_Vinci)</string>-->
+    <!--<string name="moGy">https://pl.wikipedia.org/wiki/Krzyk_(obraz)</string>-->
 </resources>
