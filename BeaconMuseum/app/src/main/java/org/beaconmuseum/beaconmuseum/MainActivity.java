@@ -55,6 +55,7 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
 
         initializeBrowser();
         BeaconSwitchSettings._activity = this;
+        beaconSwitchSettings.updateLastNearestBeacon();
         beaconSwitchSettings.updateSlideMenu(this);
     }
 
