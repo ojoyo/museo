@@ -3,6 +3,8 @@
     <string name="kontakt_io_api_key">HsmnNSCbfCkXumwJHqafmkWBvIeYEXbo</string>
     <string name="action_toogle">Zmiana trybu odświeżania</string>
     <string name="kalibracja">Kalibracja</string>
+    <string name="toggle_on">Tryb ręczny</string>
+    <string name="toggle_off">Tryb auto</string>
 
 
 

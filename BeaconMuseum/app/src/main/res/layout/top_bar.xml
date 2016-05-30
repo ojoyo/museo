@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="1.0">
+    <ToggleButton
+        android:id="@+id/toggle_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOn="@string/toggle_on"
+        android:textOff="@string/toggle_off"
+        android:checked="false"
+        android:layout_weight=".5"/>
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/kalibracja"
+        android:id="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|right"
+        android:onClick="changeVIewTEst"
+        android:layout_weight=".5"/>
+</LinearLayout>
