@@ -17,6 +17,10 @@ public class GUIManager {
         text2.setText(tmp);
     }
 
+    public static String getBeaconLink(int id) {
+        return "TODO"; // TODO
+    }
+
     /*public static void swapWithClosest(TextView text) {
         TextView t = (TextView) _activity.findViewById(R.id.textView);
         swapBeacons(text,t);
