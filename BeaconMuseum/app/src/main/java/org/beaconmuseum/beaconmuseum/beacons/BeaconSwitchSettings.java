@@ -96,4 +96,8 @@ public class BeaconSwitchSettings {
         String link = GUIManager.getBeaconLink(nearestBeacon.getInfo().id);
         closestPainting.loadUrl(link);
     }
+
+    public boolean isManualModeOn() {
+        return manualModeOn;
+    }
 }
