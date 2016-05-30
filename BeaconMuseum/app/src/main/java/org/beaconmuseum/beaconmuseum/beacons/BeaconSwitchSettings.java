@@ -28,6 +28,7 @@ public class BeaconSwitchSettings {
 
     public BeaconSwitchSettings() {
         manualModeOn = false;
+        lastNearestBeacon = new NoBeacon();
     }
 
     BeaconInfo lastNearestBeacon;
