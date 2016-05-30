@@ -65,11 +65,13 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
             Log.d("device discovered", beacon.id);
             beaconSwitchSettings.updateSlideMenu(this);
         }
+
         if (event == EventType.DEVICE_LOST) {
             Log.d("device lost", beacon.id);
             beaconSwitchSettings.updateSlideMenu(this);
         }
-        if (beaconSwitchSettings.nearestBeaconHasChanged()) {
+
+        if (beaconSwitchSettings.nearestBeaconHasChanged() && !beaconSwitchSettings.isManualModeOn()) {
             beaconSwitchSettings.displayNearestPainting();
             beaconSwitchSettings.updateLastNearestBeacon();
         }
