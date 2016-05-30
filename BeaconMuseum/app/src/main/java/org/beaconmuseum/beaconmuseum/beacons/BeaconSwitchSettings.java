@@ -20,24 +20,22 @@ import java.util.ArrayList;
  * Created by filip on 30.05.16.
  */
 public class BeaconSwitchSettings {
-    static Activity _activity;
-
-    private static BeaconSwitchSettings ourInstance = new BeaconSwitchSettings(_activity);
+    public static Activity _activity;
+    @Inject
+    private AppManager appManager;
+    @Inject
+    private NearestBeacon nearestBeacon;
+    
+    private static BeaconSwitchSettings ourInstance = new BeaconSwitchSettings();
 
     public static BeaconSwitchSettings getInstance() {
         return ourInstance;
     }
 
-    private BeaconSwitchSettings(Activity activity) {
-        _activity = activity;
+    public BeaconSwitchSettings() {
         manualModeOn = false;
         updateLastNearestBeacon();
     }
-
-    @Inject
-    private AppManager appManager;
-    @Inject
-    private NearestBeacon nearestBeacon;
 
     BeaconInfo lastNearestBeacon;
     boolean manualModeOn;
@@ -58,6 +56,11 @@ public class BeaconSwitchSettings {
         final HorizontalScrollView slideMenu = (HorizontalScrollView) _activity.findViewById(R.id.scrollView);
         final ArrayList<String> list = new ArrayList<>();
         final LinearLayout ll = new LinearLayout(t);
+
+        // Nie chcemy robić automatycznego update
+        if (manualModeOn)
+            return;
+
         for (BeaconInfo beacon : appManager.refreshGUI()) {
             Log.d("Update beacon", beacon.id);
             list.add(beacon.id);
@@ -88,6 +91,7 @@ public class BeaconSwitchSettings {
             }
         });
     }
+
     private void displayAnotherPainting(View v) {
         Button b = (Button) v;
         String beaconName = b.getText().toString();
