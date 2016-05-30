@@ -9,6 +9,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import org.beaconmuseum.beaconmuseum.AppManager;
 import org.beaconmuseum.beaconmuseum.GUIManager;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 /**
  * Created by filip on 30.05.16.
  */
+@Singleton
 public class BeaconSwitchSettings {
     public static Activity _activity;
     @Inject
