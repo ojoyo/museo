@@ -28,7 +28,6 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
     @Inject BeaconSwitchSettings beaconSwitchSettings;
 
     BtBroadcastReceiver bluetoothState = new BtBroadcastReceiver();
-    RemoteDBManager dbManager = new RemoteDBManager();
 
     private class ArtBrowser extends WebViewClient {
         @Override
@@ -55,6 +54,8 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
         eventListener.registerProcessor(this);
 
         initializeBrowser();
+        BeaconSwitchSettings._activity = this;
+        beaconSwitchSettings.updateLastNearestBeacon();
         beaconSwitchSettings.updateSlideMenu(this);
     }
 
@@ -67,6 +68,10 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
         if (event == EventType.DEVICE_LOST) {
             Log.d("device lost", beacon.id);
             beaconSwitchSettings.updateSlideMenu(this);
+        }
+        if (beaconSwitchSettings.nearestBeaconHasChanged()) {
+            beaconSwitchSettings.displayNearestPainting();
+            beaconSwitchSettings.updateLastNearestBeacon();
         }
         //refreshClick(null);
     }

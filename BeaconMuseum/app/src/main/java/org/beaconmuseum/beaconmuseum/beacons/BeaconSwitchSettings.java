@@ -21,23 +21,14 @@ import java.util.ArrayList;
  */
 public class BeaconSwitchSettings {
     public static Activity _activity;
-
-    private static BeaconSwitchSettings ourInstance = new BeaconSwitchSettings(_activity);
-
-    public static BeaconSwitchSettings getInstance() {
-        return ourInstance;
-    }
-
-    private BeaconSwitchSettings(Activity activity) {
-        _activity = activity;
-        manualModeOn = false;
-        updateLastNearestBeacon();
-    }
-
     @Inject
     private AppManager appManager;
     @Inject
     private NearestBeacon nearestBeacon;
+
+    public BeaconSwitchSettings() {
+        manualModeOn = false;
+    }
 
     BeaconInfo lastNearestBeacon;
     boolean manualModeOn;
@@ -51,13 +42,14 @@ public class BeaconSwitchSettings {
     }
 
     public boolean nearestBeaconHasChanged() {
-        return nearestBeacon.getInfo() == lastNearestBeacon;
+        return nearestBeacon.getInfo() != lastNearestBeacon;
     }
 
     public void updateSlideMenu(final Activity t) {
         final HorizontalScrollView slideMenu = (HorizontalScrollView) _activity.findViewById(R.id.scrollView);
         final ArrayList<String> list = new ArrayList<>();
         final LinearLayout ll = new LinearLayout(t);
+
         for (BeaconInfo beacon : appManager.refreshGUI()) {
             Log.d("Update beacon", beacon.id);
             list.add(beacon.id);
@@ -88,14 +80,20 @@ public class BeaconSwitchSettings {
             }
         });
     }
+
     private void displayAnotherPainting(View v) {
         Button b = (Button) v;
         String beaconName = b.getText().toString();
-        String packageName = _activity.getApplicationContext().getPackageName();
-        String link = _activity.getResources().getString(_activity.getResources().getIdentifier(beaconName, "string", packageName));
+        String link = GUIManager.getBeaconLink(beaconName);
 
         WebView closestPainting = (WebView) _activity.findViewById(R.id.webView);
         closestPainting.loadUrl(link);
 
+    }
+
+    public void displayNearestPainting() {
+        WebView closestPainting = (WebView) _activity.findViewById(R.id.webView);
+        String link = GUIManager.getBeaconLink(nearestBeacon.getInfo().id);
+        closestPainting.loadUrl(link);
     }
 }

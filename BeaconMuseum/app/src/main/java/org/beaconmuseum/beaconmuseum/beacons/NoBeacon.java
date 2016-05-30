@@ -14,4 +14,9 @@ public class NoBeacon extends BeaconInfo {
     public boolean isABeacon() {
         return false;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return false;
+    }
 }
