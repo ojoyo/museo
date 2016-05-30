@@ -91,7 +91,7 @@ public class BeaconSwitchSettings {
     private void displayAnotherPainting(View v) {
         Button b = (Button) v;
         String beaconName = b.getText().toString();
-        String link = GUIManager.getBeaconLink(Integer.parseInt(beaconName));
+        String link = GUIManager.getBeaconLink(beaconName);
 
         WebView closestPainting = (WebView) _activity.findViewById(R.id.webView);
         closestPainting.loadUrl(link);
