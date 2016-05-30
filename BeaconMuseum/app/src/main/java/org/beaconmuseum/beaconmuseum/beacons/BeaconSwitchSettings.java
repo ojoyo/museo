@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * Created by filip on 30.05.16.
  */
 public class BeaconSwitchSettings {
-    static Activity _activity;
+    public static Activity _activity;
 
     private static BeaconSwitchSettings ourInstance = new BeaconSwitchSettings(_activity);
 
@@ -91,7 +91,8 @@ public class BeaconSwitchSettings {
     private void displayAnotherPainting(View v) {
         Button b = (Button) v;
         String beaconName = b.getText().toString();
-        String link = GUIManager.getBeaconLink(Integer.parseInt(beaconName));
+        String packageName = _activity.getApplicationContext().getPackageName();
+        String link = _activity.getResources().getString(_activity.getResources().getIdentifier(beaconName, "string", packageName));
 
         WebView closestPainting = (WebView) _activity.findViewById(R.id.webView);
         closestPainting.loadUrl(link);
