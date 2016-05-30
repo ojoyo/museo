@@ -26,6 +26,7 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
     @Inject AppManager appManager;
     @Inject BeaconEventListener eventListener;
     @Inject BeaconSwitchSettings beaconSwitchSettings;
+    @Inject ToggleManualMode toggleMode;
 
     BtBroadcastReceiver bluetoothState = new BtBroadcastReceiver();
 
@@ -54,6 +55,10 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
         eventListener.registerProcessor(this);
 
         initializeBrowser();
+
+        ToggleButton toggle = (ToggleButton) findViewById(R.id.toggle_button);
+        toggle.setOnCheckedChangeListener(toggleMode);
+
         BeaconSwitchSettings._activity = this;
         beaconSwitchSettings.updateLastNearestBeacon();
         beaconSwitchSettings.updateSlideMenu(this);
