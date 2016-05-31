@@ -92,7 +92,7 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
         IndoorLocator.calibrate();
 
         if (Calibrator.isCalibrated())
-            setContentView(R.layout.calibrator_assistent);
+            setContentView(R.layout.map);
 
     }
 

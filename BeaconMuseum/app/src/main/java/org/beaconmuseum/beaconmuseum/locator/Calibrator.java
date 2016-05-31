@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -33,6 +34,8 @@ import java.util.concurrent.Semaphore;
 public class Calibrator {
     private static boolean calibrated = false;
     private static Point[] triangle;
+    private static HashMap<String, Point> beaconPositions = new HashMap<>();
+
 
     public void walkTheRoom(final Context context) {
         // wyświetl dialog itd.
@@ -67,12 +70,23 @@ public class Calibrator {
         Map< Pair<String, String>, Double> distances = CalibratorMultiChoose.distanceMap;
         //        Map<String, BeaconInfo> map = BeaconsInRangeList.getInstance().getMap();
         // juz zakładamy że są ustawione
+        double a_b = distances.get(Pair.create(bListNames[selected.get(0)], bListNames[selected.get(1)]));
+        double a_c = distances.get(Pair.create(bListNames[selected.get(0)], bListNames[selected.get(2)]));
+        double c_b = distances.get(Pair.create(bListNames[selected.get(1)], bListNames[selected.get(2)]));
+        double c_a = distances.get(Pair.create(bListNames[selected.get(2)], bListNames[selected.get(0)]));
 
-        double a_b, a_c, c_b, c_a;
-        //triangle = LogicCalc.makeTriangle(a_b, a_c, c_b, c_a);
+        triangle = LogicCalc.makeTriangle(a_b, a_c, c_b, c_a);
+        Log.d("triangle", triangle[0]._X + " " + triangle[0]._Y);
+        Log.d("triangle", triangle[1]._X + " " + triangle[1]._Y);
+        Log.d("triangle", triangle[2]._X + " " + triangle[2]._Y);
 
 
-//        calibrated = true;
+        for (int i = 0; i <= 3; i++)
+            beaconPositions.put(bListNames[selected.get(0)], triangle[0]);
+
+
+        calibrated = true;
+
     }
 
     public static Map<Pair<String, String>, Double> continuusStand(Context context, String str,
@@ -90,7 +104,7 @@ public class Calibrator {
 
     public static HashMap<String, Point> deliverBeaconPositions() {
         if (!calibrated)
-            return null;
+            return new HashMap<>(beaconPositions); // nic tylko je narysować
 
         return null;
     }
@@ -104,5 +118,18 @@ public class Calibrator {
 
     public static boolean isCalibrated() {
         return calibrated;
+    }
+
+    public static Point definePosition()
+    {
+        if (!calibrated)
+            return null;
+        Set<String> set = beaconPositions.keySet();
+        ArrayList<Double> lengths = new ArrayList<>();
+
+        for(String s: set)
+            lengths.add(BeaconsInRangeList.getDistance(s));
+
+        return null;
     }
 }
