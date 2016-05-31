@@ -103,8 +103,10 @@ public class BeaconSwitchSettings {
     public void displayNearestPainting() {
         WebView closestPainting = (WebView) _activity.findViewById(R.id.webView);
         String link = GUIManager.getBeaconLink(nearestBeacon.getInfo().id);
+
         Log.d("change", "zmieniam obraz!" + link);
-        closestPainting.loadUrl(link);
+        if(link != null)
+            closestPainting.loadUrl(link);
     }
 
     public boolean isManualModeOn() {
