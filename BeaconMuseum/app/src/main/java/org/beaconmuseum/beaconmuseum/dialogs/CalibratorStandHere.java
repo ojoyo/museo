@@ -22,7 +22,7 @@ import java.util.concurrent.Semaphore;
  */
 public class CalibratorStandHere {
 
-    final private static double closeToBeacon = 0.1;
+    final private static double closeToBeacon = 0.5;
 
     public static AlertDialog.Builder getBuilder(final Context context,
                                                  final String standHere) {

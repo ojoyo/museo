@@ -53,7 +53,7 @@ public class Calibrator {
         basket.putInt("quantity", bListNames.length);
         basket.putStringArray("beaconList", bListNames);
 
-        final int ile = 2;
+        final int ile = 3;
         final List<Integer> selected = new ArrayList<>(ile);
         AlertDialog.Builder builder =
                 CalibratorMultiChoose.getBuilder(context, ile, bListNames, selected);
@@ -66,9 +66,6 @@ public class Calibrator {
 
         Map< Pair<String, String>, Double> distances = CalibratorMultiChoose.distanceMap;
         //        Map<String, BeaconInfo> map = BeaconsInRangeList.getInstance().getMap();
-//        w1 = map.get(bListNames[selected.get(0)]);
-//        w2 = map.get(bListNames[selected.get(1)]);
-//        w3 = map.get(bListNames[selected.get(2)]);
         // juz zakładamy że są ustawione
 
         double a_b, a_c, c_b, c_a;
@@ -105,4 +102,7 @@ public class Calibrator {
         return null;
     }
 
+    public static boolean isCalibrated() {
+        return calibrated;
+    }
 }

@@ -13,6 +13,7 @@ import com.kontakt.sdk.android.ble.discovery.EventType;
 import roboguice.RoboGuice;
 import roboguice.activity.RoboActivity;
 import org.beaconmuseum.beaconmuseum.beacons.*;
+import org.beaconmuseum.beaconmuseum.locator.Calibrator;
 import org.beaconmuseum.beaconmuseum.locator.IndoorLocator;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
     protected void initializeBrowser() {
         WebView closestPainting = (WebView) findViewById(R.id.webView);
         closestPainting.setWebViewClient(new ArtBrowser());
-        closestPainting.loadUrl("https://pl.wikipedia.org/wiki/Zdzis%C5%82aw_Beksi%C5%84ski");
+        //closestPainting.loadUrl("https://pl.wikipedia.org/wiki/Zdzis%C5%82aw_Beksi%C5%84ski");
     }
 
     @Override
@@ -83,29 +84,15 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
         //refreshClick(null);
     }
 
-    /*TODO tutaj będziemy apdejtować i listę, i stronę najbliższego beacona*/
-    /*public void refreshClick(View v) {
-        BeaconInfo[] bList = appManager.refreshGUI();
-        TextView textViewBig = (TextView)findViewById(R.id.textView);
-        if(textViewBig == null)
-            return;
-
-        for (int i = 0; i < bList.length; i++) {
-            Log.d("rangelist", bList[i].id + ", odleglosc: " + bList[i].range + "\n");
-            if (i == 0)
-                textViewBig.setText(bList[i].id);
-            //TODO else inne beacony w dynamicznej liscie pod spodem (na razie jest statyczna!)
-            // uzywac funkcji GUIManagera
-        }
-        Log.d("rangelist", "____\n");
-
-    }*/
 
     public void changeVIewTEst(View v) {
-        setContentView(R.layout.calibrator_assistent);
+        //setContentView(R.layout.calibrator_assistent);
 
         IndoorLocator.init(this);
         IndoorLocator.calibrate();
+
+        if (Calibrator.isCalibrated())
+            setContentView(R.layout.calibrator_assistent);
 
     }
 
