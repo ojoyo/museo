@@ -1,6 +1,10 @@
 package org.beaconmuseum.beaconmuseum;
 
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +19,8 @@ import roboguice.activity.RoboActivity;
 import org.beaconmuseum.beaconmuseum.beacons.*;
 import org.beaconmuseum.beaconmuseum.locator.Calibrator;
 import org.beaconmuseum.beaconmuseum.locator.IndoorLocator;
+import org.beaconmuseum.beaconmuseum.map.CanvasMapDrawer;
+import org.beaconmuseum.beaconmuseum.map.Point;
 
 import java.util.ArrayList;
 
@@ -86,13 +92,12 @@ public class MainActivity extends RoboActivity implements BeaconEventProcessorIn
 
 
     public void changeVIewTEst(View v) {
-        //setContentView(R.layout.calibrator_assistent);
 
-        IndoorLocator.init(this);
-        IndoorLocator.calibrate();
-
-        if (Calibrator.isCalibrated())
-            setContentView(R.layout.map);
+//        IndoorLocator.init(this);
+//        IndoorLocator.calibrate();
+//
+//        if (Calibrator.isCalibrated())
+//            setContentView(R.layout.map);
 
     }
 

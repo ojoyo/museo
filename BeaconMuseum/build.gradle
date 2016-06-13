@@ -3,6 +3,7 @@
 buildscript {
     repositories {
         jcenter()
+
         // Beacon API repository
         maven { url 'http://repo.kontakt.io/repository/internal/' }
     }
@@ -13,6 +14,7 @@ buildscript {
 
 allprojects {
     repositories {
+
         jcenter()
     }
 }

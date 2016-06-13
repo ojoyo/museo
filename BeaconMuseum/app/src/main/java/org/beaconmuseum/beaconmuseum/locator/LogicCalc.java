@@ -1,10 +1,11 @@
 package org.beaconmuseum.beaconmuseum.locator;
 
-import android.util.Pair;
+import android.support.v4.util.Pair;
 
 
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by skazy on 20.05.16.
@@ -21,7 +22,8 @@ public class LogicCalc {
         Point c = new Point(c_b, 0);
 
         double aX = (a_b * a_b - a_c * a_c - c_b * c_b) / (-2 * c_b);
-        double aY = Math.sqrt(a_b * a_b - aX * aX);
+        double aY = Math.sqrt(Math.abs(a_b * a_b - aX * aX));
+        System.out.println("AY = " + (a_b * a_b - aX * aX));
 
         Point a = new Point(aX, aY);
 
@@ -69,19 +71,24 @@ public class LogicCalc {
         //dotąd git!
 
         Point P1 = solve2lines(U1, V1, h11, U2, V2, h21);
+        System.out.println("P1 X=" + P1._X + " Y=" + P1._Y);
         Point P2 = solve2lines(U1, V1, h12, U2, V2, h21);
         Point P3 = solve2lines(U1, V1, h11, U2, V2, h22);
         Point P4 = solve2lines(U1, V1, h12, U2, V2, h22);
 
         double Psum = (Pa + Pb + Pc);
 
-        ArrayList< Pair<Point, Double> > candidates = new ArrayList<>();
-        candidates.add(Pair.create(P1, getSumOfDistances(P1, A, B, C) - Psum));
-        candidates.add(Pair.create(P2, getSumOfDistances(P2, A, B, C) - Psum));
-        candidates.add(Pair.create(P3, getSumOfDistances(P3, A, B, C) - Psum));
-        candidates.add(Pair.create(P4, getSumOfDistances(P4, A, B, C) - Psum));
 
-        return bestPoint(candidates);
+        ArrayList< Pair<Point, Double> > candidates = new ArrayList<>();
+        Double d = new Double(getSumOfDistances(P1, A, B, C) - Psum);
+        Pair<Point, Double> pair1 = Pair.create(P1, d);
+        candidates.add(pair1);
+        candidates.add(new Pair<Point, Double>(P2, getSumOfDistances(P2, A, B, C) - Psum));
+        candidates.add(new Pair<Point, Double>(P3, getSumOfDistances(P3, A, B, C) - Psum));
+        candidates.add(new Pair<Point, Double>(P4, getSumOfDistances(P4, A, B, C) - Psum));
+
+
+        return bestPoint(new ArrayList<Pair<Point, Double>>(candidates));
     }
 
     private static double heronHeight(double ab, double ac, double bc) // opuszczona z A na BC
@@ -116,6 +123,7 @@ public class LogicCalc {
     // pary: punkt, suma odleglosci
     //robimy min z sum odleglosci
     {
+        System.out.println("rozmiar kand = " + candidates.size());
         if(candidates.size() == 0)
             return null;
 
@@ -131,22 +139,9 @@ public class LogicCalc {
         return toReturn;
     }
 
-    private static double getSumOfDistances(Point p, Point a, Point b, Point c)
+    private static Double getSumOfDistances(Point p, Point a, Point b, Point c)
     {
-        return twoPointDistance(p, a) + twoPointDistance(p, b) + twoPointDistance(p, c);
-    }
-
-
-
-    public static void main(String[] args) {
-
-        Point points[] = {new Point(1.74, 3.64), new Point(0.6, 0.54),
-                new Point(4.62, 1.06)};
-
-        Double distances[] = {3.23, 5.25, 2.42};
-
-        Point wyn = getPosition(points, distances);
-
+        return new Double(twoPointDistance(p, a) + twoPointDistance(p, b) + twoPointDistance(p, c));
     }
 
 }

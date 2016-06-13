@@ -54,8 +54,8 @@ public class IndoorLocator {
         return instance.verticles.toArray(new Point[instance.verticles.size()]);
     }
 
-    public Point getPosition() {
+    public static Point getPosition() {
 //        myPosition = Calibrator.definePosition();
-        return myPosition;
+        return instance.myPosition;
     }
 }

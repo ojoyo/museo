@@ -41,6 +41,8 @@ public class Calibrator {
         // wyświetl dialog itd.
         //Intent intent = new Intent(context, CalibrateActivity.class);
 
+        if(true)return;
+
         BeaconsInRangeList birl = BeaconsInRangeList.getInstance();
 
         BeaconInfo[] bList = birl.getList();

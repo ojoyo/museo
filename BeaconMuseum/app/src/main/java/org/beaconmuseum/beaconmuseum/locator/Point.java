@@ -7,11 +7,11 @@ public class Point {
     public final double _X;
     public final double _Y;
 
-    Point(double x, double y) {
+    public Point(double x, double y) {
         _X = x;
         _Y = y;
     }
 
-    Point() {_X = 0; _Y = 0;}
+    public Point() {_X = 0; _Y = 0;}
 
 }
