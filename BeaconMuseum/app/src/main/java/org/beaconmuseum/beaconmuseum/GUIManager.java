@@ -12,19 +12,9 @@ public class GUIManager {
     public static Activity _activity;
     private static RemoteDBManager dbManager = new RemoteDBManager();
 
-    public static void swapBeacons(TextView text1, TextView text2) {
-        CharSequence tmp = text1.getText();
-        text1.setText(text2.getText());
-        text2.setText(tmp);
-    }
-
     public static String getBeaconLink(String beaconName) {
         return dbManager.getUrlFromDatabase(beaconName);
     }
 
-    /*public static void swapWithClosest(TextView text) {
-        TextView t = (TextView) _activity.findViewById(R.id.textView);
-        swapBeacons(text,t);
-    }*/
 }
 

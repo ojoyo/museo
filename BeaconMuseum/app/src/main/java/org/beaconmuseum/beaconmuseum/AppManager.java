@@ -1,6 +1,8 @@
 package org.beaconmuseum.beaconmuseum;
 
 import com.google.inject.Inject;
+//import org.junit.Test;
+//import static org.junit.Assert.*;
 import org.beaconmuseum.beaconmuseum.beacons.*;
 
 import android.util.Log;
@@ -29,3 +31,17 @@ public class AppManager {
     }
 }
 
+//class MyComparatorTest {
+//    @Test
+//    public void testCompare() throws Exception {
+//        BeaconInfo b1 = new BeaconInfo("b1", "beacon1", 10);
+//        BeaconInfo b2 = new BeaconInfo("b2", "beacon2", 30);
+//
+//        myComparator comp = new myComparator();
+//
+//        assertEquals(comp.compare(b1,b2), -1);
+//        assertEquals(comp.compare(b2,b1), 1);
+//        assertEquals(comp.compare(b1,b1), 0);
+//    }
+//
+//}

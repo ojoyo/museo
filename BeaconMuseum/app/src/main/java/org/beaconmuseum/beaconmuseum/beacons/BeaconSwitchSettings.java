@@ -112,4 +112,6 @@ public class BeaconSwitchSettings {
     public boolean isManualModeOn() {
         return manualModeOn;
     }
+
+    public BeaconInfo getLastNearestBeacon() {return lastNearestBeacon; }
 }
